@@ -1,0 +1,12 @@
+<Window x:Class="Football_Management_System.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login" Height="300" Width="300">
+    <Grid>
+        <Label Content="Username:" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Name="UsernameTextBox" Margin="10,30,10,0" VerticalAlignment="Top"/>
+        <Label Content="Password:" Margin="10,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <PasswordBox Name="PasswordBox" Margin="10,90,10,0" VerticalAlignment="Top"/>
+        <Button Content="Login" Margin="10,130,10,0" VerticalAlignment="Top" Click="LoginButton_Click"/>
+    </Grid>
+</Window>

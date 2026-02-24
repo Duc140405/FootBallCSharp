@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD:Football_Management_System/Football_Management_System/Football_Management_System.csproj
     <Compile Include="Statistics\Models\AwardModel.cs" />
     <Compile Include="Statistics\Models\PlayerStatistic.cs" />
     <Compile Include="Statistics\Models\TournamentStatistic.cs" />
@@ -63,37 +64,58 @@
     <Compile Include="Statistics\Views\StatisticsAndAwardsWindow.xaml.cs">
       <DependentUpon>StatisticsAndAwardsWindow.xaml</DependentUpon>
     </Compile>
+=======
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StandingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QuanLyDoiBong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QuanLyHuanLuyenVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> main:Football_Management_System/Football_Management_System.csproj
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+<<<<<<< HEAD:Football_Management_System/Football_Management_System/Football_Management_System.csproj
     <Page Include="Statistics\Views\StatisticsAndAwardsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+=======
+    <Compile Include="StandingsWindow.xaml.cs">
+      <DependentUpon>StandingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QuanLyHuanLuyenVien.xaml.cs">
+      <DependentUpon>QuanLyHuanLuyenVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MatchResultMainWindow.xaml.cs">
+      <DependentUpon>MatchResultMainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MatchResultWindow.xaml.cs">
+      <DependentUpon>MatchResultWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QuanLyDoiBong.xaml.cs">
+      <DependentUpon>QuanLyDoiBong.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+>>>>>>> main:Football_Management_System/Football_Management_System.csproj
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

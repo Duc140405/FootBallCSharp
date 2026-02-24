@@ -1,0 +1,71 @@
+﻿<Window x:Class="Football_Management_System.QuanLyGiaiDau"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Football_Management_System"
+        mc:Ignorable="d"
+        Title="QuanLyGiaiDau" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen" Background="#F0F2F5">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#2196F3" CornerRadius="0,0,10,10" Margin="5" Height="65">
+            <TextBlock Text="QUẢN LÝ GIẢI ĐẤU BÓNG ĐÁ" Foreground="White" FontSize="24" FontWeight="Bold" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" CornerRadius="10" Padding="15" Margin="0,0,10,0">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="1. Thông Tin Giải Đấu" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                    <UniformGrid DockPanel.Dock="Bottom" Columns="1">
+                        <Button x:Name="btnThem" Content="Thêm Giải Đấu" Background="#4CAF50" Foreground="White" Height="45" Margin="0,5" Click="btnThem_Click" BorderThickness="0"/>
+                        <Button x:Name="btnSua" Content="Sửa Giải Đấu" Background="#FF9800" Foreground="White" Height="45" Margin="0,5" Click="btnSua_Click" BorderThickness="0"/>
+                        <Button x:Name="btnXoa" Content="Xóa Giải Đấu" Background="#F44336" Foreground="White" Height="45" Margin="0,5" Click="btnXoa_Click" BorderThickness="0"/>
+                    </UniformGrid>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" BorderThickness="0">
+                        <StackPanel VerticalAlignment="Top">
+                            <TextBlock Text="Tên Giải Đấu" Margin="0,5" FontSize="14"/>
+                            <TextBox x:Name="txtTenGiaiDau" Height="35" VerticalContentAlignment="Center" Margin="0,0,0,15" FontSize="14"/>
+
+                            <TextBlock Text="Số Vòng Đấu" Margin="0,5" FontSize="14"/>
+                            <TextBox x:Name="txtSoVongDau" Height="35" VerticalContentAlignment="Center" Margin="0,0,0,15" FontSize="14"/>
+
+                            <TextBlock Text="Thời Gian Bắt Đầu" Margin="0,5" FontSize="14"/>
+                            <DatePicker x:Name="dtpNgayBatDau" Height="35" Margin="0,0,0,15" FontSize="14"/>
+
+                            <TextBlock Text="Thời Gian Kết Thúc" Margin="0,5" FontSize="14"/>
+                            <DatePicker x:Name="dtpNgayKetThuc" Height="35" Margin="0,0,0,15" FontSize="14"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+            <Border Grid.Column="1" Background="White" CornerRadius="10" Padding="10">
+                <DataGrid x:Name="dgvGiaiDau" AutoGenerateColumns="False" IsReadOnly="True" 
+                          CanUserAddRows="False" GridLinesVisibility="Horizontal" 
+                          Background="Transparent" BorderThickness="0" FontSize="14"
+                          SelectionChanged="dgvGiaiDau_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tên Giải Đấu" Binding="{Binding TenGiai}" Width="*"/>
+                        <DataGridTextColumn Header="Số Vòng" Binding="{Binding SoVong}" Width="100"/>
+                        <DataGridTextColumn Header="Bắt Đầu" Binding="{Binding NgayBD}" Width="150"/>
+                        <DataGridTextColumn Header="Kết Thúc" Binding="{Binding NgayKT}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
