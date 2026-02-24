@@ -56,6 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD:Football_Management_System/Football_Management_System/Football_Management_System.csproj
+    <Compile Include="Statistics\Models\AwardModel.cs" />
+    <Compile Include="Statistics\Models\PlayerStatistic.cs" />
+    <Compile Include="Statistics\Models\TournamentStatistic.cs" />
+    <Compile Include="Statistics\ViewModels\StatisticsViewModel.cs" />
+    <Compile Include="Statistics\Views\StatisticsAndAwardsWindow.xaml.cs">
+      <DependentUpon>StatisticsAndAwardsWindow.xaml</DependentUpon>
+    </Compile>
+=======
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,10 +81,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+>>>>>>> main:Football_Management_System/Football_Management_System.csproj
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+<<<<<<< HEAD:Football_Management_System/Football_Management_System/Football_Management_System.csproj
+    <Page Include="Statistics\Views\StatisticsAndAwardsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+=======
     <Compile Include="StandingsWindow.xaml.cs">
       <DependentUpon>StandingsWindow.xaml</DependentUpon>
     </Compile>
@@ -94,6 +110,7 @@
       <DependentUpon>QuanLyDoiBong.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+>>>>>>> main:Football_Management_System/Football_Management_System.csproj
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
