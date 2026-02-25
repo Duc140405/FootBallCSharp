@@ -1,0 +1,73 @@
+﻿<Window x:Class="Football_Management_System.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BÁO CÁO VÀ XUẤT DỮ LIỆU"
+        Height="750" Width="1200"
+        Background="#F3F6FA">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Background="#2E86DE" CornerRadius="8">
+            <TextBlock Text="BÁO CÁO VÀ THỐNG KÊ GIẢI ĐẤU"
+                       Foreground="White"
+                       FontSize="26"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"/>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT -->
+            <StackPanel Background="White"  Margin="0,0,20,0">
+
+                <TextBlock Text="Thống kê tổng quan"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"/>
+
+                <TextBlock Text="Tổng đội:"/>
+                <TextBlock x:Name="txtTeams" FontSize="16" FontWeight="Bold"/>
+
+                <TextBlock Text="Tổng cầu thủ:" Margin="0,10,0,0"/>
+                <TextBlock x:Name="txtPlayers" FontSize="16" FontWeight="Bold"/>
+
+                <TextBlock Text="Tổng trận:" Margin="0,10,0,0"/>
+                <TextBlock x:Name="txtMatches" FontSize="16" FontWeight="Bold"/>
+
+                <Separator Margin="0,20"/>
+
+                <Button Content="Xuất Excel"
+                        Height="40"
+                        Margin="0,5"
+                        Click="ExportExcel_Click"/>
+
+                <Button Content="Xuất PDF"
+                        Height="40"
+                        Margin="0,5"
+                        Click="ExportPdf_Click"/>
+
+                <Button Content="In"
+                        Height="40"
+                        Margin="0,5"
+                        Click="Print_Click"/>
+            </StackPanel>
+
+            <!-- RIGHT -->
+            <DataGrid x:Name="gridStats"
+                      Grid.Column="1"
+                      AutoGenerateColumns="True"
+                      IsReadOnly="True"/>
+        </Grid>
+    </Grid>
+</Window>
