@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="utf-8"?>
+=======
 ﻿<?xml version="1.0" encoding="utf-8"?>
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -8,12 +12,20 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Football_Management_System</RootNamespace>
     <AssemblyName>Football_Management_System</AssemblyName>
+<<<<<<< HEAD
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+=======
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+<<<<<<< HEAD
+    <TargetFrameworkProfile />
+=======
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,6 +49,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+<<<<<<< HEAD
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+=======
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,8 +72,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD
+    <Compile Include="CoachManagementWindow.xaml.cs">
+      <DependentUpon>CoachManagementWindow.xaml</DependentUpon>
+=======
     <Compile Include="ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
     </Compile>
     <Page Include="MatchResultMainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -66,6 +88,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+<<<<<<< HEAD
+=======
     <Page Include="PlayerManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -90,6 +115,12 @@
       <DependentUpon>MatchResultWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+<<<<<<< HEAD
+    <Page Include="CoachManagementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+=======
     <Page Include="ReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,6 +135,7 @@
       <DependentUpon>StandingsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

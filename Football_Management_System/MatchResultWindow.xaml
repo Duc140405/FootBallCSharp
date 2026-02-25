@@ -71,6 +71,10 @@
                         <TextBlock Text="⚽ TỶ SỐ" FontWeight="Bold" FontSize="13" 
                                    Foreground="#2E7D32" Margin="0,15,0,8"/>
                         <Grid>
+<<<<<<< HEAD
+                            <Grid.ColumnDefinitions>
+=======
+>>>>>>> 500f901614624974f9fdf1d15d32508d4b3f9814
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="30"/>
                                 <ColumnDefinition Width="*"/>
