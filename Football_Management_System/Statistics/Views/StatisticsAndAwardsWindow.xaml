@@ -1,0 +1,172 @@
+<Window x:Class="Football_Management_System.Statistics.Views.StatisticsAndAwardsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Thống kê và Giải thưởng"
+        Height="800" Width="1400"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#F5F7FB">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Grid.Row="0" Background="#1E90FF" Padding="20">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="THỐNG KÊ &amp; GIẢI THƯỞNG GIẢI ĐẤU"
+                           Foreground="White"
+                           FontSize="24"
+                           FontWeight="Bold"/>
+            </StackPanel>
+        </Border>
+
+        <!-- CONTENT -->
+        <ScrollViewer Grid.Row="1">
+            <Grid Margin="20">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- KPI CARDS -->
+                <UniformGrid Columns="4" Margin="0 0 0 20">
+                    <Border Background="White" CornerRadius="12" Margin="10" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="Tổng số trận" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="120" FontSize="28" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White" CornerRadius="12" Margin="10" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="Tổng bàn thắng" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="356" FontSize="28" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White" CornerRadius="12" Margin="10" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="Thẻ vàng" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="210" FontSize="28" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White" CornerRadius="12" Margin="10" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="Thẻ đỏ" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="15" FontSize="28" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!-- MAIN GRID -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- LEFT -->
+                    <StackPanel Grid.Column="0">
+
+                        <Border Background="White" CornerRadius="12" Padding="15" Margin="10">
+                            <StackPanel>
+                                <TextBlock Text="Top ghi bàn"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Margin="0 0 0 10"/>
+
+                                <DataGrid AutoGenerateColumns="False" Height="200">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Tên" Width="*"/>
+                                        <DataGridTextColumn Header="Bàn thắng" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="12" Padding="15" Margin="10">
+                            <StackPanel>
+                                <TextBlock Text="Top kiến tạo"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Margin="0 0 0 10"/>
+
+                                <DataGrid AutoGenerateColumns="False" Height="200">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Tên" Width="*"/>
+                                        <DataGridTextColumn Header="Kiến tạo" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <!-- RIGHT -->
+                    <StackPanel Grid.Column="1">
+
+                        <Border Background="White" CornerRadius="12" Padding="15" Margin="10">
+                            <StackPanel>
+                                <TextBlock Text="Cầu thủ xuất sắc nhất"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Margin="0 0 0 10"/>
+
+                                <DataGrid AutoGenerateColumns="False" Height="150">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Tên" Width="*"/>
+                                        <DataGridTextColumn Header="CLB" Width="200"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="12" Padding="15" Margin="10">
+                            <StackPanel>
+                                <TextBlock Text="Đội hình tiêu biểu"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           Margin="0 0 0 10"/>
+
+                                <DataGrid AutoGenerateColumns="False" Height="220">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Tên" Width="*"/>
+                                        <DataGridTextColumn Header="Vị trí" Width="150"/>
+                                        <DataGridTextColumn Header="CLB" Width="200"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+                </Grid>
+
+                <!-- BUTTONS -->
+                <StackPanel Grid.Row="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0 20 0 0">
+
+                    <Button Content="Xuất báo cáo"
+                            Width="140"
+                            Height="40"
+                            Margin="10"
+                            Background="#1E90FF"
+                            Foreground="White"/>
+
+                    <Button Content="In thống kê"
+                            Width="140"
+                            Height="40"
+                            Margin="10"
+                            Background="#2ECC71"
+                            Foreground="White"/>
+                </StackPanel>
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

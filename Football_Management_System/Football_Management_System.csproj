@@ -144,12 +144,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Statistics\Views\StatisticsAndAwardsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataAccess\DatabaseHelper.cs" />
+    <Compile Include="Statistics\Models\AwardModel.cs" />
+    <Compile Include="Statistics\Models\PlayerStatistic.cs" />
+    <Compile Include="Statistics\Models\TournamentStatistic.cs" />
+    <Compile Include="Statistics\ViewModels\StatisticsViewModel.cs" />
+    <Compile Include="Statistics\Views\StatisticsAndAwardsWindow.xaml.cs">
+      <DependentUpon>StatisticsAndAwardsWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
