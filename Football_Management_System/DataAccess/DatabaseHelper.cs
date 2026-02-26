@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -11,7 +12,7 @@ namespace Football_Management_System.DataAccess
 
         public DatabaseHelper()
         {
-            _connectionString = "Server=.;Database=FootballManagementDB;Integrated Security=True;";
+            _connectionString = ConfigurationManager.ConnectionStrings["FootballDB"].ConnectionString;
         }
 
         public DatabaseHelper(string connectionString)
@@ -19,7 +20,7 @@ namespace Football_Management_System.DataAccess
             _connectionString = connectionString;
         }
 
-        private SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
             return new SqlConnection(_connectionString);
         }

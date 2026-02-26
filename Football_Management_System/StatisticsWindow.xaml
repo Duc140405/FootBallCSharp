@@ -1,4 +1,4 @@
-﻿<Window x:Class="FootBallCSharp.StatisticsWindow"
+﻿<Window x:Class="Football_Management_System.StatisticsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Thống kê và Giải thưởng"

@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace Football_Management_System.Views
+namespace Football_Management_System
 {
     public partial class LoginWindow : Window
     {
