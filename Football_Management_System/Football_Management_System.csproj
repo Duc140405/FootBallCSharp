@@ -94,6 +94,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="QuanLyGiaiDau.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LichThiDau.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -125,6 +133,12 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QuanLyGiaiDau.xaml.cs">
+      <DependentUpon>QuanLyGiaiDau.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LichThiDau.xaml.cs">
+      <DependentUpon>LichThiDau.xaml</DependentUpon>
     </Compile>
     <Page Include="StatisticsWindow.xaml">
       <SubType>Designer</SubType>
