@@ -34,22 +34,31 @@ Football_Management_System/
 
 ---
 
-## 👥 Phân công thành viên & XAML
+## 👥 Phân công thành viên & trạng thái
 
-| # | Nhánh Git | XAML Window | Chức năng | DB Tables |
-|---|-----------|-------------|-----------|-----------|
-| 1 | `duc` | `MatchResultMainWindow` + `MatchResultWindow` | Quản lý kết quả trận đấu | `Teams`, `Matches`, `MatchResults` + View + 5 SPs ✅ |
-| 2 | `chinh` | `LoginWindow` | Đăng nhập / Phân quyền | `Roles`, `Users` |
-| 3 | — | `PlayerManagement` | Quản lý cầu thủ | `players`, `player_general_statistics`, `player_notes`, `player_attachments` |
-| 4 | — | `CoachManagementWindow` | Quản lý huấn luyện viên | `coaches`, `coach_history` |
-| 5 | `quanLyDoiBong` | `QuanLyDoiBong` | Quản lý đội bóng | `teams` |
-| 6 | — | `StandingsWindow` | Bảng xếp hạng | `Tournament`, `Team`, `Round`, `Match`, `Standings`, `Player`, `PlayerStatistics` + SPs |
-| 7 | — | `ReportWindow` | Báo cáo / Xuất Excel, PDF | *(dùng chung DB, cần NuGet: ClosedXML, iTextSharp)* |
-| 8 | — | `StatisticsWindow` | Thống kê tổng hợp | *(dùng chung DB)* |
-| 9 | — | *(chưa có)* | — | `Tournaments` (TenGiai, SoVong, NgayBD, NgayKT) |
-| 10 | — | *(chưa có)* | — | — |
+| # | Thành viên | Nhánh Git | XAML đã push | Chức năng | DB trong FootballDB_All | Trạng thái |
+|---|------------|-----------|-------------|-----------|------------------------|------------|
+| 1 | **Nguyễn Tấn Đức** | `duc` | `MatchResultMainWindow` + `MatchResultWindow` | Quản lý kết quả trận đấu | `Teams`, `Matches`, `MatchResults` + View + 5 SPs + data mẫu | ✅ **Hoàn thành** |
+| 2 | **QuangBao** | `QuangBao` | `LoginWindow` | Đăng nhập / Phân quyền | `Roles`, `Users` | ✅ Đã push XAML + code-behind |
+| 3 | **Ngọc Việt** | `Viet` | `PlayerManagement` | Quản lý cầu thủ | `players`, `player_general_statistics`, `player_notes`, `player_attachments` | ⚠️ Chỉ có XAML UI, **chưa có code-behind logic + chưa có DB riêng** |
+| 4 | **TranPhuc** | `TranPhuc` | `StatisticsWindow` + `CoachManagementWindow` | Thống kê + HLV | `coaches`, `coach_history` | ⚠️ `CoachManagement` x:Class sai (`Window1`), `StatisticsWindow` namespace sai (`FootBallCSharp`) |
+| 5 | **Bao** | `bao` / `quanLyDoiBong` | `QuanLyDoiBong` | Quản lý đội bóng | `teams` | ⚠️ Đã push XAML, **chưa có code-behind logic** |
+| 6 | **QuocDo** | `QuocDo` | `StandingsWindow` | Bảng xếp hạng | `Tournament`, `Team`, `Round`, `Match`, `Standings`, `Player`, `PlayerStatistics` + 7 SPs + data mẫu | ✅ Đã push XAML + code + DB (`FootballManagementDB.sql`) |
+| 7 | **Huy** | `Huy` | `ReportWindow` | Báo cáo / Xuất Excel, PDF | *(dùng chung DB)* | ❌ **Thiếu NuGet packages** (ClosedXML, iTextSharp, Entity Framework) |
+| 8 | **Chinh** | `chinh` | *(merge commit, không có file mới riêng)* | — | — | ❌ **Chưa push phần riêng** |
+| 9 | **Dat** | `Dat` | *(merge commit, không có file mới riêng)* | — | — | ❌ **Chưa push phần riêng** |
+| 10 | **Hien** | `Hien` | `LichThiDau` (trong subfolder cũ) | Lịch thi đấu | — | ❌ **Chưa di chuyển vào project chính** |
+| — | **MinhQuan** | `MinhQuan` | *(copy lại file của người khác)* | — | — | ❌ **Chưa có phần riêng** |
 
-> **Nhánh Git của các thành viên:** `duc`, `chinh`, `Dat`, `Hien`, `Huy`, `MinhQuan`, `QuangBao`, `QuocDo`, `TranPhuc`, `Viet`, `bao`, `quanLyDoiBong`
+### 📊 Tổng kết nhanh
+
+| Trạng thái | Số người | Ai |
+|------------|----------|-----|
+| ✅ Hoàn thành (XAML + code + DB) | **3** | Đức, QuocDo, QuangBao |
+| ⚠️ Đã push nhưng chưa hoàn chỉnh | **3** | Việt, TranPhuc, Bao |
+| ❌ Chưa push phần riêng / thiếu nhiều | **4+** | Huy, Chinh, Dat, Hien, MinhQuan |
+
+> **Nhánh Git:** `duc`, `chinh`, `Dat`, `Hien`, `Huy`, `MinhQuan`, `QuangBao`, `QuocDo`, `TranPhuc`, `Viet`, `bao`, `quanLyDoiBong`
 
 ---
 
