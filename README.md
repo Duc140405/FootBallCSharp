@@ -3,7 +3,14 @@
 > **Môn:** Lập trình ứng dụng .NET  
 > **Trường:** Đại học Duy Tân  
 > **Ngày:** 26/02/2026  
-> **Nhóm:** 10 thành viên  
+> **Nhóm 3:** 10 thành viên  
+> **Đề tài:** Quản lý hệ thống giải đấu bóng đá  
+
+---
+
+## 🎯 Mục tiêu dự án
+
+Xây dựng ứng dụng **WPF** phục vụ quản lý một **giải đấu bóng đá** (đội tham gia, cầu thủ, lịch thi đấu, kết quả, bảng xếp hạng, thống kê), dữ liệu lưu trữ bằng **SQL Server**.
 
 ---
 
@@ -11,109 +18,121 @@
 
 ```
 Football_Management_System/
-├── App.xaml / App.xaml.cs              ← Khởi động ứng dụng
+├── App.xaml / App.xaml.cs                  ← Khởi động ứng dụng
 ├── DataAccess/
-│   └── DatabaseHelper.cs              ← Kết nối & thao tác DB (Đức)
+│   └── DatabaseHelper.cs                  ← Kết nối & thao tác DB (Đức)
 ├── Database/
-│   ├── FootballDB_Schema.sql          ← DB riêng từng thành viên
-│   └── FootballDB_All.sql             ← DB tổng hợp tất cả thành viên
+│   ├── FootballDB_Master.sql              ← ⭐ DB chuẩn duy nhất (Single Source of Truth)
+│   ├── FootballDB_Schema.sql              ← DB riêng phần Kết quả trận đấu
+│   └── FootballDB_All.sql                 ← DB tổng hợp (bản cũ, tham khảo)
 ├── Properties/
 │   └── AssemblyInfo.cs
 │
-├── MatchResultMainWindow.xaml/.cs     ← Màn hình chính Match Result (Đức)
-├── MatchResultWindow.xaml/.cs         ← Quản lý kết quả trận đấu (Đức)
-├── LoginWindow.xaml/.cs               ← Đăng nhập
-├── PlayerManagement.xaml/.cs          ← Quản lý cầu thủ
-├── CoachManagementWindow.xaml/.cs     ← Quản lý huấn luyện viên
-├── QuanLyDoiBong.xaml/.cs             ← Quản lý đội bóng
-├── StandingsWindow.xaml/.cs           ← Bảng xếp hạng
-├── ReportWindow.xaml/.cs              ← Báo cáo / Xuất file
-├── StatisticsWindow.xaml/.cs          ← Thống kê
+├── LoginWindow.xaml/.cs                   ← Đăng nhập & phân quyền (Quân)
+├── QuanLyGiaiDau.xaml/.cs                 ← Quản lý giải đấu (Chinh)
+├── QuanLyDoiBong.xaml/.cs                 ← Quản lý đội bóng (Bảo)
+├── PlayerManagement.xaml/.cs              ← Quản lý cầu thủ (Việt)
+├── CoachManagementWindow.xaml/.cs         ← Quản lý huấn luyện viên (Đạt)
+├── LichThiDau.xaml/.cs                    ← Lịch thi đấu (Hiền)
+├── MatchResultMainWindow.xaml/.cs         ← Màn hình chính Kết quả (Đức)
+├── MatchResultWindow.xaml/.cs             ← Quản lý kết quả trận đấu (Đức)
+├── StandingsWindow.xaml/.cs               ← Bảng xếp hạng (Độ)
+├── StatisticsWindow.xaml/.cs              ← Thống kê & giải thưởng (Phúc)
+├── ReportWindow.xaml/.cs                  ← Báo cáo & xuất dữ liệu (Huy)
 └── Football_Management_System.csproj
 ```
 
 ---
 
-## 👥 Phân công thành viên & trạng thái
+## 👥 Phân công nhiệm vụ chi tiết
 
-| # | Thành viên | Nhánh Git | XAML đã push | Chức năng | DB trong FootballDB_All | Trạng thái |
-|---|------------|-----------|-------------|-----------|------------------------|------------|
-| 1 | **Nguyễn Tấn Đức** | `duc` | `MatchResultMainWindow` + `MatchResultWindow` | Quản lý kết quả trận đấu | `Teams`, `Matches`, `MatchResults` + View + 5 SPs + data mẫu | ✅ **Hoàn thành** |
-| 2 | **QuangBao** | `QuangBao` | `LoginWindow` | Đăng nhập / Phân quyền | `Roles`, `Users` | ✅ Đã push XAML + code-behind |
-| 3 | **Ngọc Việt** | `Viet` | `PlayerManagement` | Quản lý cầu thủ | `players`, `player_general_statistics`, `player_notes`, `player_attachments` | ⚠️ Chỉ có XAML UI, **chưa có code-behind logic + chưa có DB riêng** |
-| 4 | **TranPhuc** | `TranPhuc` | `StatisticsWindow` + `CoachManagementWindow` | Thống kê + HLV | `coaches`, `coach_history` | ⚠️ `CoachManagement` x:Class sai (`Window1`), `StatisticsWindow` namespace sai (`FootBallCSharp`) |
-| 5 | **Bao** | `bao` / `quanLyDoiBong` | `QuanLyDoiBong` | Quản lý đội bóng | `teams` | ⚠️ Đã push XAML, **chưa có code-behind logic** |
-| 6 | **QuocDo** | `QuocDo` | `StandingsWindow` | Bảng xếp hạng | `Tournament`, `Team`, `Round`, `Match`, `Standings`, `Player`, `PlayerStatistics` + 7 SPs + data mẫu | ✅ Đã push XAML + code + DB (`FootballManagementDB.sql`) |
-| 7 | **Huy** | `Huy` | `ReportWindow` | Báo cáo / Xuất Excel, PDF | *(dùng chung DB)* | ❌ **Thiếu NuGet packages** (ClosedXML, iTextSharp, Entity Framework) |
-| 8 | **Chinh** | `chinh` | *(merge commit, không có file mới riêng)* | — | — | ❌ **Chưa push phần riêng** |
-| 9 | **Dat** | `Dat` | *(merge commit, không có file mới riêng)* | — | — | ❌ **Chưa push phần riêng** |
-| 10 | **Hien** | `Hien` | `LichThiDau` (trong subfolder cũ) | Lịch thi đấu | — | ❌ **Chưa di chuyển vào project chính** |
-| — | **MinhQuan** | `MinhQuan` | *(copy lại file của người khác)* | — | — | ❌ **Chưa có phần riêng** |
+| # | Thành viên | Window | Chức năng chính |
+|---|------------|--------|-----------------|
+| 1 | **Quân** | `LoginWindow` | Đăng nhập hệ thống, phân quyền Admin / Người quản lý, kiểm tra hợp lệ tài khoản |
+| 2 | **Chinh** | `QuanLyGiaiDau` | Thêm / sửa / xóa giải đấu, thiết lập số vòng đấu, thời gian bắt đầu – kết thúc |
+| 3 | **Bảo** | `QuanLyDoiBong` | Thêm / sửa / xóa đội bóng, thông tin đội (tên, logo, HLV), gán đội vào giải đấu |
+| 4 | **Việt** | `PlayerManagement` | Thêm / sửa / xóa cầu thủ, số áo, vị trí, ngày sinh, gán cầu thủ cho đội |
+| 5 | **Đạt** | `CoachManagementWindow` | Thông tin HLV, gán HLV cho đội bóng, theo dõi lịch sử dẫn dắt |
+| 6 | **Hiền** | `LichThiDau` | Tạo lịch thi đấu tự động, chỉnh sửa lịch, hiển thị lịch theo vòng / đội |
+| 7 | **Đức** | `MatchResultWindow` | Nhập kết quả trận, bàn thắng, thẻ phạt, cập nhật kết quả vào hệ thống |
+| 8 | **Độ** | `StandingsWindow` | Tự động tính điểm, sắp xếp theo điểm / hiệu số, cập nhật theo thời gian thực |
+| 9 | **Phúc** | `StatisticsWindow` | Vua phá lưới, cầu thủ kiến tạo, thống kê số bàn thắng / thẻ |
+| 10 | **Huy** | `ReportWindow` | Xuất báo cáo PDF / Excel, thống kê tổng quan giải đấu, hỗ trợ in ấn |
 
-### 📊 Tổng kết nhanh
+---
+
+## 📊 Trạng thái trên nhánh `main` (GitHub)
+
+| # | Thành viên | Nhánh Git | File XAML trên main | Trạng thái |
+|---|------------|-----------|---------------------|------------|
+| 1 | **Quân** | `MinhQuan` | `LoginWindow.xaml/.cs` | ✅ Đã push *(nằm trong subfolder sai)* |
+| 2 | **Chinh** | `chinh` | `QuanLyGiaiDau.xaml/.cs` | ✅ Đã push |
+| 3 | **Bảo** | `bao` | `QuanLyDoiBong.xaml/.cs` | ✅ Đã push |
+| 4 | **Việt** | `Viet` | `FormQuanLyCauThu.xaml/.cs` | ✅ Đã push *(nằm trong subfolder sai)* |
+| 5 | **Đạt** | `Dat` | `QuanLyHuanLuyenVien.xaml/.cs` | ✅ Đã push |
+| 6 | **Hiền** | `Hien` | `LichThiDau.xaml/.cs` | ✅ Đã push *(nằm trong subfolder sai)* |
+| 7 | **Đức** | `duc` | `MatchResultMainWindow` + `MatchResultWindow` | ✅ Đã push + code-behind + DB |
+| 8 | **Độ** | `QuocDo` | `StandingsWindow.xaml/.cs` | ✅ Đã push *(nằm trong subfolder sai)* |
+| 9 | **Phúc** | `TranPhuc` | `StatisticsAndAwardsWindow.xaml/.cs` + Models + ViewModels | ✅ Đã push *(nằm trong subfolder sai)* |
+| 10 | **Huy** | `Huy` | ❌ **Không có `ReportWindow` trên main** | ❌ **Chưa push lên main** |
+
+### Tổng kết
 
 | Trạng thái | Số người | Ai |
 |------------|----------|-----|
-| ✅ Hoàn thành (XAML + code + DB) | **3** | Đức, QuocDo, QuangBao |
-| ⚠️ Đã push nhưng chưa hoàn chỉnh | **3** | Việt, TranPhuc, Bao |
-| ❌ Chưa push phần riêng / thiếu nhiều | **4+** | Huy, Chinh, Dat, Hien, MinhQuan |
+| ✅ Đã push lên main | **9** | Quân, Chinh, Bảo, Việt, Đạt, Hiền, Đức, Độ, Phúc |
+| ❌ Chưa push lên main | **1** | **Huy** (ReportWindow chỉ có trên nhánh `Huy` và `test`) |
 
-> **Nhánh Git:** `duc`, `chinh`, `Dat`, `Hien`, `Huy`, `MinhQuan`, `QuangBao`, `QuocDo`, `TranPhuc`, `Viet`, `bao`, `quanLyDoiBong`
+### ⚠️ Lưu ý: File đặt sai thư mục trên main
+
+Một số thành viên push file vào thư mục con `Football_Management_System/Football_Management_System/` thay vì `Football_Management_System/`:
+
+| Thành viên | Vị trí sai | Cần di chuyển về |
+|------------|-----------|-----------------|
+| Quân | `.../Football_Management_System/LoginWindow.xaml` | `Football_Management_System/LoginWindow.xaml` |
+| Việt | `.../Football_Management_System/FormQuanLyCauThu.xaml` | `Football_Management_System/PlayerManagement.xaml` |
+| Hiền | `.../Football_Management_System/LichThiDau.xaml` | `Football_Management_System/LichThiDau.xaml` |
+| Độ | `.../Football_Management_System/StandingsWindow.xaml` | `Football_Management_System/StandingsWindow.xaml` |
+| Phúc | `.../Football_Management_System/Statistics/Views/...` | `Football_Management_System/StatisticsWindow.xaml` |
 
 ---
 
 ## 🗄️ Database
 
-### File DB riêng (mỗi thành viên tự tạo)
-Mỗi người tạo file SQL riêng cho phần của mình (ví dụ: `FootballDB_Schema.sql` của Đức).
+### ⭐ File DB chuẩn: `FootballDB_Master.sql`
 
-### File DB tổng hợp: `FootballDB_All.sql`
-Gộp tất cả DB của các thành viên vào **1 file duy nhất**. Hiện tại đã có:
+Database chuẩn duy nhất cho cả nhóm — **Single Source of Truth**. Gồm 16 bảng, 1 view, 12 stored procedures, dữ liệu mẫu.
 
-| Phần DB | Bảng | Trạng thái |
-|---------|------|------------|
-| Quản lý đội bóng | `teams` (team_id, team_name, logo_path, tournament_id, coach_id, status) | ✅ Đã có |
-| Quản lý cầu thủ | `players`, `player_general_statistics`, `player_notes`, `player_attachments` | ✅ Đã có |
-| Quản lý HLV | `coaches`, `coach_history` | ✅ Đã có |
-| Giải đấu (v1) | `Tournaments` | ✅ Đã có |
-| Đăng nhập | `Roles`, `Users` | ✅ Đã có |
-| Bảng xếp hạng | `Tournament`, `Team`, `Round`, `Match`, `Standings`, `Player`, `PlayerStatistics` + 7 SPs + data mẫu | ✅ Đã có |
-| **Kết quả trận đấu (Đức)** | `Teams`, `Matches`, `MatchResults` + `vw_MatchDetails` + 5 SPs + data mẫu | ✅ **Đã gộp** |
-| Báo cáo | *(dùng chung DB)* | — |
-| Thống kê | *(dùng chung DB)* | — |
+| Cấp | Bảng | Phụ trách | Mô tả |
+|-----|------|-----------|-------|
+| 1 (Nền tảng) | `Tournaments` | Chinh | Giải đấu |
+| 1 | `Coaches` | Đạt | Huấn luyện viên |
+| 1 | `Roles` | Quân | Phân quyền |
+| 2 | `Teams` | Bảo | Đội bóng *(bảng chuẩn duy nhất)* |
+| 2 | `Users` | Quân | Người dùng |
+| 2 | `Rounds` | Độ | Vòng đấu |
+| 3 | `Players` | Việt | Cầu thủ |
+| 3 | `Matches` | Đức / Hiền | Trận đấu |
+| 3 | `CoachHistory` | Đạt | Lịch sử HLV |
+| 4 | `MatchResults` | Đức | Kết quả trận đấu |
+| 4 | `Standings` | Độ | Bảng xếp hạng |
+| 4 | `PlayerStatistics` | Độ | Thống kê cầu thủ theo trận |
+| 4 | `PlayerGeneralStatistics` | Việt | Thống kê tổng cầu thủ |
+| 4 | `PlayerNotes` | Việt | Ghi chú cầu thủ |
+| 4 | `PlayerAttachments` | Việt | Đính kèm cầu thủ |
 
----
-
-## ⚠️ Các vấn đề cần giải quyết khi tích hợp
-
-### 1. Namespace không thống nhất
-Hiện tại các file XAML dùng **namespace khác nhau**:
-
-| File | Namespace hiện tại | Cần đổi thành |
-|------|--------------------|---------------|
-| `App.xaml` | `FootBallCSharp` | `Football_Management_System` |
-| `StatisticsWindow.xaml` | `FootBallCSharp` | `Football_Management_System` |
-| `PlayerManagement.xaml` | `DoAnDotNET` | `Football_Management_System` |
-| `LoginWindow.xaml.cs` | `Football_Management_System.Views` | `Football_Management_System` |
-| Các file còn lại | `Football_Management_System` | ✅ OK |
-
-### 2. Bảng trùng tên
-Trong `FootballDB_All.sql` có nhiều bảng trùng tên (SQL Server **không phân biệt** hoa/thường):
-- `teams` xuất hiện **3 lần** (dòng 1, dòng 133, và phần của Đức dùng `Teams`)
-- `Tournaments` vs `Tournament` — 2 bảng giải đấu khác cấu trúc
-
-→ **Cần thống nhất**: chọn 1 bảng `teams` dùng chung, 1 bảng `Tournament` dùng chung.
-
-### 3. NuGet Packages thiếu
-`ReportWindow.xaml.cs` dùng thư viện chưa cài:
-- `ClosedXML` — xuất Excel
-- `iTextSharp` — xuất PDF
-- `FootballTournamentEntities` — Entity Framework model chưa tạo
-
-→ Thành viên phụ trách `ReportWindow` cần thêm NuGet packages.
-
-### 4. `x:Class` không khớp
-`CoachManagementWindow.xaml` khai báo `x:Class="Football_Management_System.Window1"` — cần đổi thành `CoachManagementWindow`.
+**Quan hệ chính:**
+```
+[Tournaments] 1 ── n [Teams] n ── 1 [Coaches]
+                       │
+              ┌────────┼────────┐
+              ▼        ▼        ▼
+          [Players] [Matches] [CoachHistory]
+                       │
+                       ▼
+                 [MatchResults]
+                 [Standings]
+```
 
 ---
 
@@ -127,53 +146,44 @@ git checkout test
 ```
 
 ### Bước 2: Tạo database
-Mở **SQL Server Management Studio** hoặc **sqlcmd** và chạy:
+Mở **SQL Server Management Studio** hoặc **sqlcmd** và chạy file **`FootballDB_Master.sql`**:
 ```sql
--- Nếu dùng LocalDB:
-sqlcmd -S "(localdb)\MSSQLLocalDB" -i "Football_Management_System\Database\FootballDB_All.sql"
+sqlcmd -S "(localdb)\MSSQLLocalDB" -i "Football_Management_System\Database\FootballDB_Master.sql"
 ```
 
 ### Bước 3: Kiểm tra connection string
-Trong `DataAccess\DatabaseHelper.cs`:
-```csharp
-// LocalDB:
-_connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=FootballManagementDB;Integrated Security=True;";
-
-// SQL Server Express:
-// _connectionString = "Server=.\\SQLEXPRESS;Database=FootballManagementDB;Integrated Security=True;";
-
-// SQL Server default:
-// _connectionString = "Server=.;Database=FootballManagementDB;Integrated Security=True;";
+Connection string được lưu trong `App.config` (KHÔNG hardcode trong code):
+```xml
+<connectionStrings>
+    <add name="FootballDB" 
+         connectionString="Server=(localdb)\MSSQLLocalDB;Database=FootballManagementDB;Integrated Security=True;" 
+         providerName="System.Data.SqlClient" />
+</connectionStrings>
 ```
+> **Nếu dùng SQL Server Express:** Mở `App.config`, đổi `Server=(localdb)\MSSQLLocalDB` thành `Server=.\SQLEXPRESS`. Không sửa file C#.
 
 ### Bước 4: Build & Run
 Mở `Football_Management_System.sln` bằng Visual Studio → Build → Run (F5).
 
 ---
 
-## ✅ Phần đã hoàn thành (Nguyễn Tấn Đức)
+## ✅ Những gì đã hoàn thành (Tích hợp nhánh `test`)
 
-### Nhánh `duc` — DB riêng + code
-- [x] `MatchResultMainWindow.xaml/.cs` — Màn hình chính với nút Start
-- [x] `MatchResultWindow.xaml/.cs` — CRUD kết quả trận đấu (thêm/sửa/xóa/tìm kiếm)
-- [x] `DataAccess/DatabaseHelper.cs` — Kết nối SQL Server, gọi Stored Procedures
-- [x] `Database/FootballDB_Schema.sql` — Schema riêng: 3 bảng + 1 view + 5 SPs + data mẫu
-- [x] Hỗ trợ **chế độ offline** khi không có DB
-
-### Nhánh `test` — Tích hợp
-- [x] Gộp DB của Đức vào `FootballDB_All.sql` (cuối file, có comment phân biệt)
-- [x] Copy `DatabaseHelper.cs` + `FootballDB_Schema.sql` sang nhánh test
-- [x] Fix merge conflicts (`App.config`, `MatchResultWindow.xaml`)
-- [x] Thêm `DatabaseHelper.cs` vào `.csproj`
+- [x] **FootballDB_Master.sql** — DB chuẩn duy nhất (16 bảng + 1 view + 12 SPs + sample data)
+- [x] **App.config** — Connection string tập trung, không hardcode
+- [x] **DatabaseHelper.cs** — Dùng `ConfigurationManager` đọc từ `App.config`
+- [x] **Namespace** — Đã thống nhất tất cả thành `Football_Management_System`
+- [x] **CoachManagementWindow** — Sửa `x:Class` từ `Window1` → `CoachManagementWindow`
+- [x] **LoginWindow** — Đổi namespace từ `Views` về root
+- [x] **App.xaml** — `StartupUri` đổi sang `LoginWindow.xaml`
+- [x] **Build** — ✅ Thành công
 
 ---
 
 ## 📋 TODO cho các thành viên
 
-- [ ] **Tất cả:** Thống nhất namespace thành `Football_Management_System`
-- [ ] **Tất cả:** Thống nhất bảng `teams`/`Teams` dùng chung 1 bảng
-- [ ] **Tất cả:** Mỗi người tạo `DataAccess` class riêng hoặc dùng chung `DatabaseHelper.cs`
-- [ ] **ReportWindow:** Thêm NuGet packages (ClosedXML, iTextSharp)
-- [ ] **CoachManagement:** Sửa `x:Class` từ `Window1` thành `CoachManagementWindow`
-- [ ] **LoginWindow:** Đổi namespace từ `Views` về root
-- [ ] **App.xaml:** Đổi `StartupUri` thành `LoginWindow.xaml` (hoặc MainWindow khi tích hợp xong)
+- [ ] **Huy:** Push `ReportWindow` lên nhánh `main`, cài NuGet (`ClosedXML`, `iTextSharp`)
+- [ ] **Quân, Việt, Hiền, Độ, Phúc:** Di chuyển file XAML từ subfolder sai về đúng thư mục gốc project
+- [ ] **Tất cả:** Pull nhánh `test`, chạy `FootballDB_Master.sql` trên SQL Server
+- [ ] **Tất cả:** Dùng `new DatabaseHelper().GetConnection()` để kết nối DB, **KHÔNG** tự viết connection string
+- [ ] **Tất cả:** Namespace phải là `Football_Management_System` (đã sửa trên nhánh `test`)
