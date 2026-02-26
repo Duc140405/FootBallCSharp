@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Football_Management_System.DataAccess;
 
 namespace Football_Management_System
 {
@@ -12,16 +13,59 @@ namespace Football_Management_System
         private ObservableCollection<Match> danhSachTranDau = new ObservableCollection<Match>();
         private List<Match> danhSachGoc = new List<Match>();
         private Match tranDauDangChon = null;
+        private DatabaseHelper dbHelper = new DatabaseHelper();
+        private bool isConnected = false;
 
         public MatchResultWindow()
         {
             InitializeComponent();
+            KiemTraKetNoi();
             LoadData();
             CapNhatThongKe();
         }
 
+        private void KiemTraKetNoi()
+        {
+            try
+            {
+                isConnected = dbHelper.TestConnection();
+                if (isConnected)
+                {
+                    txtStatus.Text = "✅ Đã kết nối database thành công!";
+                }
+                else
+                {
+                    txtStatus.Text = "⚠️ Không thể kết nối database. Sử dụng chế độ offline.";
+                }
+            }
+            catch (Exception ex)
+            {
+                isConnected = false;
+                txtStatus.Text = $"⚠️ Lỗi kết nối: {ex.Message}";
+            }
+        }
+
         private void LoadData()
         {
+            try
+            {
+                if (isConnected)
+                {
+                    var matches = dbHelper.GetAllMatches();
+                    danhSachTranDau.Clear();
+                    danhSachGoc.Clear();
+                    foreach (var match in matches)
+                    {
+                        danhSachTranDau.Add(match);
+                        danhSachGoc.Add(match);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                txtStatus.Text = $"⚠️ Lỗi tải dữ liệu: {ex.Message}";
+            }
+
             cboMatch.ItemsSource = danhSachTranDau;
             cboMatch.DisplayMemberPath = "DisplayName";
             dgMatches.ItemsSource = danhSachTranDau;
@@ -29,8 +73,25 @@ namespace Football_Management_System
 
         private void CapNhatThongKe()
         {
-            txtTongTran.Text = danhSachTranDau.Count.ToString();
-            txtDaCoKQ.Text = danhSachTranDau.Count(m => m.HomeScore.HasValue).ToString();
+            try
+            {
+                if (isConnected)
+                {
+                    var stats = dbHelper.GetStatistics();
+                    txtTongTran.Text = stats.TongTran.ToString();
+                    txtDaCoKQ.Text = stats.DaCoKetQua.ToString();
+                }
+                else
+                {
+                    txtTongTran.Text = danhSachTranDau.Count.ToString();
+                    txtDaCoKQ.Text = danhSachTranDau.Count(m => m.HomeScore.HasValue).ToString();
+                }
+            }
+            catch
+            {
+                txtTongTran.Text = danhSachTranDau.Count.ToString();
+                txtDaCoKQ.Text = danhSachTranDau.Count(m => m.HomeScore.HasValue).ToString();
+            }
         }
 
         private void cboMatch_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,10 +122,28 @@ namespace Football_Management_System
             }
             else
             {
-                var ketQua = danhSachTranDau.Where(m => 
-                    m.HomeTeam.ToLower().Contains(keyword) || 
-                    m.AwayTeam.ToLower().Contains(keyword)).ToList();
-                dgMatches.ItemsSource = ketQua;
+                try
+                {
+                    if (isConnected)
+                    {
+                        var ketQua = dbHelper.SearchMatches(keyword);
+                        dgMatches.ItemsSource = ketQua;
+                    }
+                    else
+                    {
+                        var ketQua = danhSachTranDau.Where(m => 
+                            m.HomeTeam.ToLower().Contains(keyword) || 
+                            m.AwayTeam.ToLower().Contains(keyword)).ToList();
+                        dgMatches.ItemsSource = ketQua;
+                    }
+                }
+                catch
+                {
+                    var ketQua = danhSachTranDau.Where(m => 
+                        m.HomeTeam.ToLower().Contains(keyword) || 
+                        m.AwayTeam.ToLower().Contains(keyword)).ToList();
+                    dgMatches.ItemsSource = ketQua;
+                }
             }
         }
 
@@ -125,10 +204,29 @@ namespace Football_Management_System
 
             tranMoi.Note = txtNote.Text.Trim();
 
-            danhSachTranDau.Add(tranMoi);
-            danhSachGoc.Add(tranMoi);
+            try
+            {
+                if (isConnected)
+                {
+                    int newId = dbHelper.AddMatch(tranMoi);
+                    tranMoi.MatchId = newId;
+                    txtStatus.Text = $"✅ Đã thêm trận vào database: {tranMoi.HomeTeam} vs {tranMoi.AwayTeam}";
+                    LoadData(); // Reload từ database
+                }
+                else
+                {
+                    danhSachTranDau.Add(tranMoi);
+                    danhSachGoc.Add(tranMoi);
+                    txtStatus.Text = $"✅ Đã thêm trận (offline): {tranMoi.HomeTeam} vs {tranMoi.AwayTeam}";
+                }
+            }
+            catch (Exception ex)
+            {
+                danhSachTranDau.Add(tranMoi);
+                danhSachGoc.Add(tranMoi);
+                txtStatus.Text = $"⚠️ Lỗi database, đã lưu offline: {ex.Message}";
+            }
             
-            txtStatus.Text = $"✅ Đã thêm trận: {tranMoi.HomeTeam} vs {tranMoi.AwayTeam}";
             CapNhatThongKe();
             XoaForm();
         }
@@ -179,10 +277,27 @@ namespace Football_Management_System
 
             tranDauDangChon.Note = txtNote.Text.Trim();
 
-            dgMatches.Items.Refresh();
-            CapNhatThongKe();
+            try
+            {
+                if (isConnected)
+                {
+                    dbHelper.UpdateMatchResult(tranDauDangChon);
+                    txtStatus.Text = $"✅ Đã cập nhật vào database: {tranDauDangChon.HomeTeam} vs {tranDauDangChon.AwayTeam}";
+                    LoadData(); // Reload từ database
+                }
+                else
+                {
+                    dgMatches.Items.Refresh();
+                    txtStatus.Text = $"✅ Đã sửa trận (offline): {tranDauDangChon.HomeTeam} vs {tranDauDangChon.AwayTeam}";
+                }
+            }
+            catch (Exception ex)
+            {
+                dgMatches.Items.Refresh();
+                txtStatus.Text = $"⚠️ Lỗi database: {ex.Message}";
+            }
             
-            txtStatus.Text = $"✅ Đã sửa trận: {tranDauDangChon.HomeTeam} vs {tranDauDangChon.AwayTeam}";
+            CapNhatThongKe();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -202,9 +317,29 @@ namespace Football_Management_System
             if (result == MessageBoxResult.Yes)
             {
                 string tenTran = $"{tranDauDangChon.HomeTeam} vs {tranDauDangChon.AwayTeam}";
-                danhSachTranDau.Remove(tranDauDangChon);
-                danhSachGoc.Remove(tranDauDangChon);
-                txtStatus.Text = $"🗑️ Đã xóa trận: {tenTran}";
+                
+                try
+                {
+                    if (isConnected)
+                    {
+                        dbHelper.DeleteMatch(tranDauDangChon.MatchId);
+                        txtStatus.Text = $"🗑️ Đã xóa khỏi database: {tenTran}";
+                        LoadData(); // Reload từ database
+                    }
+                    else
+                    {
+                        danhSachTranDau.Remove(tranDauDangChon);
+                        danhSachGoc.Remove(tranDauDangChon);
+                        txtStatus.Text = $"🗑️ Đã xóa trận (offline): {tenTran}";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    danhSachTranDau.Remove(tranDauDangChon);
+                    danhSachGoc.Remove(tranDauDangChon);
+                    txtStatus.Text = $"⚠️ Lỗi database: {ex.Message}";
+                }
+                
                 CapNhatThongKe();
                 XoaForm();
             }
