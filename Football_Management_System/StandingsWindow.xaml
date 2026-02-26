@@ -40,24 +40,24 @@
                                    Margin="0,0,0,12"/>
 
                         <TextBlock Text="Giải đấu" FontWeight="SemiBold" Margin="0,0,0,6"/>
-                        <ComboBox Height="34" Margin="0,0,0,12">
-                            <ComboBoxItem Content="Giải VĐQG 2026"/>
-                            <ComboBoxItem Content="Cup Sinh viên 2026"/>
-                        </ComboBox>
+                        <ComboBox x:Name="cboTournament" 
+                                  Height="34" 
+                                  Margin="0,0,0,12"
+                                  SelectionChanged="cboTournament_SelectionChanged"/>
 
                         <TextBlock Text="Vòng đấu" FontWeight="SemiBold" Margin="0,0,0,6"/>
-                        <ComboBox Height="34" Margin="0,0,0,12">
-                            <ComboBoxItem Content="Tất cả"/>
-                            <ComboBoxItem Content="Vòng 1"/>
-                            <ComboBoxItem Content="Vòng 2"/>
-                            <ComboBoxItem Content="Vòng 3"/>
-                        </ComboBox>
+                        <ComboBox x:Name="cboRound" 
+                                  Height="34" 
+                                  Margin="0,0,0,12"
+                                  SelectionChanged="cboRound_SelectionChanged"/>
 
                         <TextBlock Text="Tìm kiếm đội bóng" FontWeight="SemiBold" Margin="0,0,0,6"/>
-                        <TextBox Height="34"
+                        <TextBox x:Name="txtSearch"
+                                 Height="34"
                                  Padding="10,0"
                                  VerticalContentAlignment="Center"
-                                 Margin="0,0,0,12"/>
+                                 Margin="0,0,0,12"
+                                 TextChanged="txtSearch_TextChanged"/>
 
                         <Separator Margin="0,8"/>
 
@@ -66,15 +66,19 @@
                                    FontWeight="Bold"
                                    Margin="0,10,0,12"/>
 
-                        <Button Content="Làm mới dữ liệu"
+                        <Button x:Name="btnRefresh"
+                                Content="Làm mới dữ liệu"
                                 Height="40"
                                 Margin="0,0,0,10"
-                                Background="#E0E0E0"/>
+                                Background="#E0E0E0"
+                                Click="btnRefresh_Click"/>
 
-                        <Button Content="Tính lại bảng xếp hạng"
+                        <Button x:Name="btnRecalculate"
+                                Content="Tính lại bảng xếp hạng"
                                 Height="40"
                                 Margin="0,0,0,10"
-                                Background="#E0E0E0"/>
+                                Background="#E0E0E0"
+                                Click="btnRecalculate_Click"/>
 
                         <Separator Margin="0,8"/>
 
@@ -83,11 +87,13 @@
                                    FontWeight="Bold"
                                    Margin="0,10,0,12"/>
 
-                        <TextBlock Text="Sẵn sàng"
+                        <TextBlock x:Name="txtStatus"
+                                   Text="Sẵn sàng"
                                    Foreground="Gray"
                                    Margin="0,0,0,6"/>
 
-                        <TextBlock Text="Cập nhật: --/--/---- --:--:--"
+                        <TextBlock x:Name="txtUpdateTime"
+                                   Text="Cập nhật: --/--/---- --:--:--"
                                    Foreground="Gray"/>
 
                     </StackPanel>
@@ -101,7 +107,8 @@
                     <!-- TAB 1 -->
                     <TabItem Header="Danh Sách Bảng Xếp Hạng">
                         <Grid Margin="6">
-                            <DataGrid AutoGenerateColumns="False"
+                            <DataGrid x:Name="dgStandings"
+                                      AutoGenerateColumns="False"
                                       CanUserAddRows="False"
                                       CanUserDeleteRows="False"
                                       IsReadOnly="True"
@@ -110,16 +117,16 @@
                                       FontSize="13">
 
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="STT" Width="60"/>
-                                    <DataGridTextColumn Header="Đội Bóng" Width="*"/>
-                                    <DataGridTextColumn Header="Số Trận" Width="80"/>
-                                    <DataGridTextColumn Header="Thắng" Width="70"/>
-                                    <DataGridTextColumn Header="Hòa" Width="70"/>
-                                    <DataGridTextColumn Header="Thua" Width="70"/>
-                                    <DataGridTextColumn Header="BT" Width="70"/>
-                                    <DataGridTextColumn Header="BB" Width="70"/>
-                                    <DataGridTextColumn Header="HS" Width="70"/>
-                                    <DataGridTextColumn Header="Điểm" Width="80"/>
+                                    <DataGridTextColumn Header="STT" Width="60" Binding="{Binding Position}"/>
+                                    <DataGridTextColumn Header="Đội Bóng" Width="*" Binding="{Binding TeamName}"/>
+                                    <DataGridTextColumn Header="Số Trận" Width="80" Binding="{Binding MatchesPlayed}"/>
+                                    <DataGridTextColumn Header="Thắng" Width="70" Binding="{Binding Wins}"/>
+                                    <DataGridTextColumn Header="Hòa" Width="70" Binding="{Binding Draws}"/>
+                                    <DataGridTextColumn Header="Thua" Width="70" Binding="{Binding Losses}"/>
+                                    <DataGridTextColumn Header="BT" Width="70" Binding="{Binding GoalsFor}"/>
+                                    <DataGridTextColumn Header="BB" Width="70" Binding="{Binding GoalsAgainst}"/>
+                                    <DataGridTextColumn Header="HS" Width="70" Binding="{Binding GoalDifference}"/>
+                                    <DataGridTextColumn Header="Điểm" Width="80" Binding="{Binding Points}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
