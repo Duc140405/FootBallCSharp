@@ -59,10 +59,10 @@
                           Background="Transparent" BorderThickness="0" FontSize="14"
                           SelectionChanged="dgvGiaiDau_SelectionChanged">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Tên Giải Đấu" Binding="{Binding TenGiai}" Width="*"/>
-                        <DataGridTextColumn Header="Số Vòng" Binding="{Binding SoVong}" Width="100"/>
-                        <DataGridTextColumn Header="Bắt Đầu" Binding="{Binding NgayBD}" Width="150"/>
-                        <DataGridTextColumn Header="Kết Thúc" Binding="{Binding NgayKT}" Width="150"/>
+                        <DataGridTextColumn Header="Tên Giải Đấu" Binding="{Binding TournamentName}" Width="*"/>
+                        <DataGridTextColumn Header="Số Vòng" Binding="{Binding TotalRounds}" Width="100"/>
+                        <DataGridTextColumn Header="Bắt Đầu" Binding="{Binding StartDate, StringFormat=\{0:dd/MM/yyyy\}}" Width="150"/>
+                        <DataGridTextColumn Header="Kết Thúc" Binding="{Binding EndDate, StringFormat=\{0:dd/MM/yyyy\}}" Width="150"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

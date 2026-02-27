@@ -14,6 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Football_Management_System.DataAccess;
+using Football_Management_System.Database;
+using System.Data.Entity;
 
 namespace Football_Management_System
 {
@@ -22,29 +25,47 @@ namespace Football_Management_System
     /// </summary>
     public partial class QuanLyGiaiDau : Window
     {
-        // Danh sách quan sát để tự động cập nhật UI
-        public ObservableCollection<GiaiDau_Model> DanhSachGiaiDau { get; set; }
+        // Khai báo Context và Helper theo quy định của nhóm
+        private FootballManagementDBEntities db;
+        private DatabaseHelper helper = new DatabaseHelper();
 
         public QuanLyGiaiDau()
         {
             InitializeComponent();
-            DanhSachGiaiDau = new ObservableCollection<GiaiDau_Model>();
-            dgvGiaiDau.ItemsSource = DanhSachGiaiDau;
+            InitializeDatabase();
+            LoadData();
         }
 
-        // ĐÂY LÀ HÀM BẠN ĐANG THIẾU: Đổ dữ liệu từ bảng lên các ô nhập khi chọn dòng
+        // Khởi tạo kết nối thông qua DatabaseHelper để không "hardcode" connection string
+        private void InitializeDatabase()
+        {
+            try
+            {
+                var connection = helper.GetConnection();
+                // Sử dụng constructor partial vừa tạo ở bước 1
+                db = new FootballManagementDBEntities(connection, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối Database: " + ex.Message);
+            }
+        }
+
+        private void LoadData()
+        {
+            if (db == null) return;
+            // Đổ dữ liệu thật từ bảng Tournaments của SQL Master lên bảng
+            dgvGiaiDau.ItemsSource = db.Tournaments.ToList();
+        }
+
         private void dgvGiaiDau_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgvGiaiDau.SelectedItem is GiaiDau_Model selected)
+            if (dgvGiaiDau.SelectedItem is Tournaments selected)
             {
-                txtTenGiaiDau.Text = selected.TenGiai;
-                txtSoVongDau.Text = selected.SoVong;
-
-                if (DateTime.TryParse(selected.NgayBD, out DateTime db))
-                    dtpNgayBatDau.SelectedDate = db;
-
-                if (DateTime.TryParse(selected.NgayKT, out DateTime dk))
-                    dtpNgayKetThuc.SelectedDate = dk;
+                txtTenGiaiDau.Text = selected.TournamentName;
+                txtSoVongDau.Text = selected.TotalRounds.ToString();
+                dtpNgayBatDau.SelectedDate = selected.StartDate;
+                dtpNgayKetThuc.SelectedDate = selected.EndDate;
             }
         }
 
@@ -52,36 +73,58 @@ namespace Football_Management_System
         {
             if (string.IsNullOrWhiteSpace(txtTenGiaiDau.Text)) return;
 
-            DanhSachGiaiDau.Add(new GiaiDau_Model
+            var moi = new Tournaments
             {
-                TenGiai = txtTenGiaiDau.Text,
-                SoVong = txtSoVongDau.Text,
-                NgayBD = dtpNgayBatDau.SelectedDate?.ToString("dd/MM/yyyy") ?? "",
-                NgayKT = dtpNgayKetThuc.SelectedDate?.ToString("dd/MM/yyyy") ?? ""
-            });
+                TournamentName = txtTenGiaiDau.Text,
+                TotalRounds = int.TryParse(txtSoVongDau.Text, out int sv) ? sv : 0,
+                StartDate = dtpNgayBatDau.SelectedDate,
+                EndDate = dtpNgayKetThuc.SelectedDate,
+                Status = "Đang diễn ra" 
+            };
+
+            db.Tournaments.Add(moi);
+            db.SaveChanges(); // Lưu trực tiếp xuống SQL Server Express
+
+            LoadData();
             ClearInputs();
+            MessageBox.Show("Thêm giải đấu thành công!");
         }
 
         private void btnSua_Click(object sender, RoutedEventArgs e)
         {
-            if (dgvGiaiDau.SelectedItem is GiaiDau_Model selected)
+            if (dgvGiaiDau.SelectedItem is Tournaments selected)
             {
-                selected.TenGiai = txtTenGiaiDau.Text;
-                selected.SoVong = txtSoVongDau.Text;
-                selected.NgayBD = dtpNgayBatDau.SelectedDate?.ToString("dd/MM/yyyy") ?? "";
-                selected.NgayKT = dtpNgayKetThuc.SelectedDate?.ToString("dd/MM/yyyy") ?? "";
+                var editItem = db.Tournaments.Find(selected.TournamentID);
+                if (editItem != null)
+                {
+                    editItem.TournamentName = txtTenGiaiDau.Text;
+                    editItem.TotalRounds = int.TryParse(txtSoVongDau.Text, out int sv) ? sv : 0;
+                    editItem.StartDate = dtpNgayBatDau.SelectedDate;
+                    editItem.EndDate = dtpNgayKetThuc.SelectedDate;
 
-                dgvGiaiDau.Items.Refresh();
-                MessageBox.Show("Cập nhật thành công!");
+                    db.SaveChanges();
+                    LoadData();
+                    MessageBox.Show("Cập nhật thành công!");
+                }
             }
         }
 
         private void btnXoa_Click(object sender, RoutedEventArgs e)
         {
-            if (dgvGiaiDau.SelectedItem is GiaiDau_Model selected)
+            if (dgvGiaiDau.SelectedItem is Tournaments selected)
             {
-                DanhSachGiaiDau.Remove(selected);
-                ClearInputs();
+                var res = MessageBox.Show("Bạn có chắc muốn xóa giải đấu này?", "Xác nhận", MessageBoxButton.YesNo);
+                if (res == MessageBoxResult.Yes)
+                {
+                    var deleteItem = db.Tournaments.Find(selected.TournamentID);
+                    if (deleteItem != null)
+                    {
+                        db.Tournaments.Remove(deleteItem);
+                        db.SaveChanges();
+                        LoadData();
+                        ClearInputs();
+                    }
+                }
             }
         }
 
@@ -92,21 +135,6 @@ namespace Football_Management_System
             dtpNgayBatDau.SelectedDate = null;
             dtpNgayKetThuc.SelectedDate = null;
         }
-    }
-
-    // Class dữ liệu hỗ trợ Binding
-    public class GiaiDau_Model : INotifyPropertyChanged
-    {
-        private string _tenGiai, _soVong, _ngayBD, _ngayKT;
-
-        public string TenGiai { get => _tenGiai; set { _tenGiai = value; OnPropertyChanged(); } }
-        public string SoVong { get => _soVong; set { _soVong = value; OnPropertyChanged(); } }
-        public string NgayBD { get => _ngayBD; set { _ngayBD = value; OnPropertyChanged(); } }
-        public string NgayKT { get => _ngayKT; set { _ngayKT = value; OnPropertyChanged(); } }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
 
