@@ -1,0 +1,137 @@
+<Window x:Class="Football_Management_System.LichThiDau"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lịch Thi Đấu"
+        Height="600"
+        Width="1000"
+        Background="#F2F2F2">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Background="#1E88E5" Grid.Row="0" CornerRadius="0,0,8,8">
+            <TextBlock Text="QUẢN LÝ LỊCH THI ĐẤU"
+                       Foreground="White"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
+        </Border>
+
+        <!-- MAIN -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- PANEL TRÁI -->
+            <Border Background="White" CornerRadius="8" Padding="10">
+                <StackPanel>
+
+                    <TextBlock Text="Chức năng"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Margin="0,0,0,10"/>
+
+                    <Button Content="Tạo lịch thi đấu tự động"
+                            Height="40"
+                            Margin="0,0,0,10"
+                            Background="#43A047"
+                            Foreground="White"/>
+
+                    <Separator Margin="0,10"/>
+
+                    <TextBlock Text="Hiển thị theo"
+                               FontWeight="Bold"/>
+
+                    <ComboBox Margin="0,5,0,10">
+                        <ComboBoxItem Content="Tất cả"/>
+                        <ComboBoxItem Content="Theo vòng"/>
+                        <ComboBoxItem Content="Theo đội"/>
+                    </ComboBox>
+
+                    <!-- TextBox có placeholder giả -->
+                    <Grid>
+                        <TextBox x:Name="FilterTextBox"
+                                 Height="30"/>
+
+                        <TextBlock Text="Nhập vòng hoặc tên đội"
+                                   Foreground="Gray"
+                                   Margin="5,0"
+                                   VerticalAlignment="Center"
+                                   IsHitTestVisible="False">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=FilterTextBox}"
+                                                     Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- NỘI DUNG PHẢI -->
+            <ScrollViewer Grid.Column="1" Margin="10,0,0,0">
+
+                <StackPanel>
+
+                    <!-- VÒNG 1 -->
+                    <Border Background="#5C6BC0"
+                            CornerRadius="6"
+                            Padding="10"
+                            Margin="0,0,0,15">
+                        <TextBlock Text="VÒNG 1"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   FontSize="16"/>
+                    </Border>
+
+                    <!-- TRẬN -->
+                    <Border Background="White"
+                            CornerRadius="6"
+                            Padding="10"
+                            Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="ĐỘI A"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"/>
+
+                            <Button Grid.Column="1"
+                                    Content="Chưa có lịch"
+                                    Background="#43A047"
+                                    Foreground="White"
+                                    Height="30"/>
+
+                            <TextBlock Grid.Column="2"
+                                       Text="ĐỘI B"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- COPY BLOCK NÀY ĐỂ TẠO THÊM TRẬN / VÒNG -->
+
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</Window>
