@@ -584,15 +584,18 @@ INSERT INTO Rounds (TournamentID, RoundNumber, RoundName, Status) VALUES
 GO
 
 -- 7.6 Trận đấu mẫu (Đức) — TeamID 6-11 = Manchester United..Tottenham
-INSERT INTO Matches (HomeTeamID, AwayTeamID, MatchDate) VALUES
-    (6, 7, '2026-03-01 19:00:00'),
-    (8, 9, '2026-03-02 21:00:00'),
-    (10, 11, '2026-03-03 18:30:00');
+INSERT INTO Matches (TournamentID, HomeTeamID, AwayTeamID, MatchDate) VALUES
+    (1, 6, 7, '2026-03-01 19:00:00'),
+    (1, 8, 9, '2026-03-02 21:00:00'),
+    (1, 10, 11, '2026-03-03 18:30:00');
 GO
 
 -- 7.7 Kết quả mẫu (Đức)
 INSERT INTO MatchResults (MatchID, HomeScore, AwayScore, HomeYellowCards, AwayYellowCards, HomeRedCards, AwayRedCards, Note)
-VALUES (1, 2, 1, 3, 2, 0, 1, N'Trận derby Manchester');
+VALUES 
+    (1, 2, 1, 3, 2, 0, 1, N'Trận derby Manchester'),
+    (2, 3, 2, 1, 1, 0, 0, N'Trận hay'),
+    (3, 2, 2, 1, 2, 0, 1, N'Hòa kịch tính');
 GO
 
 -- 7.8 BXH mẫu (QuocDo) — TeamID 1-5 = Hà Nội..Thanh Hóa
@@ -605,8 +608,8 @@ INSERT INTO Standings (TournamentID, TeamID, Position, MatchesPlayed, Wins, Draw
 GO
 
 -- =============================================
--- 7.9 CẦU THỦ MẪU (Việt)
--- TeamID 1-5 = Hà Nội..Thanh Hóa
+-- 7.9 CẦU THỦ MẪU
+-- TeamID 1-5 = Việt Nam, TeamID 6-11 = EPL
 -- =============================================
 
 INSERT INTO Players 
@@ -615,35 +618,42 @@ INSERT INTO Players
  PreferredFoot, HeightCm, WeightKg,
  Status, TechnicalScore)
 VALUES
-(1, N'Nguyễn Quang Hải', '1997-04-12', N'Việt Nam',
- 19, N'MF', N'Attacking Midfielder',
- N'Trái', 168, 65,
- N'Sẵn sàng', 9),
-
-(1, N'Phạm Tuấn Hải', '1998-05-19', N'Việt Nam',
- 9, N'FW', N'Striker',
- N'Phải', 178, 72,
- N'Sẵn sàng', 8),
-
-(2, N'Nguyễn Công Phượng', '1995-01-21', N'Việt Nam',
- 10, N'FW', N'Second Striker',
- N'Phải', 168, 63,
- N'Sẵn sàng', 8),
-
-(3, N'Đỗ Hùng Dũng', '1993-09-08', N'Việt Nam',
- 88, N'MF', N'Central Midfielder',
- N'Phải', 170, 67,
- N'Sẵn sàng', 8),
-
-(4, N'Bùi Tiến Dũng', '1995-10-02', N'Việt Nam',
- 1, N'GK', N'Goalkeeper',
- N'Phải', 181, 78,
- N'Sẵn sàng', 7),
-
-(5, N'Đoàn Văn Hậu', '1999-04-19', N'Việt Nam',
- 5, N'DF', N'Left Back',
- N'Trái', 185, 79,
- N'Sẵn sàng', 8);
+-- Team 1: Hà Nội FC
+(1, N'Nguyễn Quang Hải', '1997-04-12', N'Việt Nam', 19, N'MF', N'Attacking Midfielder', N'Left', 168, 65, N'Active', 9),
+(1, N'Phạm Tuấn Hải', '1998-05-19', N'Việt Nam', 9, N'FW', N'Striker', N'Right', 178, 72, N'Active', 8),
+(1, N'Trần Đình Trọng', '1997-02-14', N'Việt Nam', 3, N'DF', N'Center Back', N'Right', 180, 75, N'Active', 7),
+-- Team 2: HAGL
+(2, N'Nguyễn Công Phượng', '1995-01-21', N'Việt Nam', 10, N'FW', N'Second Striker', N'Right', 168, 63, N'Active', 8),
+(2, N'Lê Văn Xuân', '2000-06-15', N'Việt Nam', 7, N'MF', N'Winger', N'Left', 172, 66, N'Active', 7),
+-- Team 3: Sài Gòn FC
+(3, N'Đỗ Hùng Dũng', '1993-09-08', N'Việt Nam', 88, N'MF', N'Central Midfielder', N'Right', 170, 67, N'Active', 8),
+(3, N'Hoàng Đức', '1998-01-08', N'Việt Nam', 14, N'MF', N'Central Midfielder', N'Right', 175, 70, N'Active', 8),
+-- Team 4: Viettel FC
+(4, N'Bùi Tiến Dũng', '1995-10-02', N'Việt Nam', 1, N'GK', N'Goalkeeper', N'Right', 181, 78, N'Active', 7),
+-- Team 5: Thanh Hóa FC
+(5, N'Đoàn Văn Hậu', '1999-04-19', N'Việt Nam', 5, N'DF', N'Left Back', N'Left', 185, 79, N'Active', 8),
+-- Team 6: Liverpool
+(6, N'Mohamed Salah', '1992-06-15', N'Egypt', 11, N'FW', N'Right Winger', N'Left', 175, 71, N'Active', 9),
+(6, N'Virgil van Dijk', '1991-07-08', N'Netherlands', 4, N'DF', N'Center Back', N'Right', 193, 92, N'Active', 9),
+(6, N'Trent Alexander-Arnold', '1998-10-07', N'England', 66, N'DF', N'Right Back', N'Right', 180, 75, N'Active', 8),
+-- Team 7: Man City
+(7, N'Erling Haaland', '2000-07-21', N'Norway', 9, N'FW', N'Striker', N'Left', 194, 88, N'Active', 9),
+(7, N'Kevin De Bruyne', '1991-06-28', N'Belgium', 17, N'MF', N'Attacking Midfielder', N'Right', 181, 76, N'Active', 10),
+(7, N'Phil Foden', '2000-05-28', N'England', 47, N'MF', N'Winger', N'Left', 171, 69, N'Active', 8),
+-- Team 8: Arsenal
+(8, N'Bukayo Saka', '2001-09-05', N'England', 7, N'FW', N'Right Winger', N'Left', 178, 72, N'Active', 9),
+(8, N'Martin Odegaard', '1998-12-17', N'Norway', 8, N'MF', N'Attacking Midfielder', N'Left', 178, 68, N'Active', 9),
+(8, N'William Saliba', '2001-03-24', N'France', 2, N'DF', N'Center Back', N'Right', 192, 85, N'Active', 8),
+-- Team 9: Tottenham
+(9, N'Son Heung-min', '1992-07-08', N'South Korea', 7, N'FW', N'Left Winger', N'Right', 183, 78, N'Active', 9),
+(9, N'James Maddison', '1996-11-23', N'England', 10, N'MF', N'Attacking Midfielder', N'Right', 175, 73, N'Active', 8),
+-- Team 10: Man Utd
+(10, N'Bruno Fernandes', '1994-09-08', N'Portugal', 8, N'MF', N'Attacking Midfielder', N'Right', 179, 69, N'Active', 9),
+(10, N'Marcus Rashford', '1997-10-31', N'England', 10, N'FW', N'Left Winger', N'Right', 185, 80, N'Active', 8),
+(10, N'Casemiro', '1992-02-23', N'Brazil', 18, N'MF', N'Defensive Midfielder', N'Right', 185, 84, N'Active', 8),
+-- Team 11: Chelsea
+(11, N'Cole Palmer', '2002-05-06', N'England', 20, N'MF', N'Attacking Midfielder', N'Left', 185, 72, N'Active', 9),
+(11, N'Nicolas Jackson', '2001-06-20', N'Senegal', 15, N'FW', N'Striker', N'Right', 182, 75, N'Active', 8);
 GO
 
 -- =============================================
@@ -655,7 +665,34 @@ SELECT PlayerID FROM Players;
 GO
 
 -- =============================================
--- 7.11 GHI CHÚ CẦU THỦ
+-- 7.11 THỐNG KÊ TRẬN ĐẤU CẦU THỦ (Đức)
+-- Match 1: Liverpool(6) vs Man City(7)
+-- Match 2: Arsenal(8) vs Tottenham(9) (Chelsea=TeamID 9 -> Tottenham)
+-- Match 3: Man Utd(10) vs Chelsea(11)
+-- PlayerID 10-25 = cầu thủ EPL
+-- =============================================
+
+INSERT INTO PlayerStatistics (PlayerID, TournamentID, MatchID, Goals, Assists, YellowCards, RedCards, MinutesPlayed) VALUES
+    (10, 1, 1, 2, 0, 0, 0, 90),
+    (11, 1, 1, 0, 0, 1, 0, 90),
+    (12, 1, 1, 0, 1, 0, 0, 90),
+    (13, 1, 1, 3, 0, 0, 0, 90),
+    (14, 1, 1, 0, 2, 0, 0, 85),
+    (15, 1, 1, 1, 1, 1, 0, 78),
+    (16, 1, 2, 1, 1, 0, 0, 90),
+    (17, 1, 2, 1, 0, 0, 0, 90),
+    (18, 1, 2, 0, 0, 1, 0, 90),
+    (19, 1, 2, 2, 0, 0, 0, 88),
+    (20, 1, 2, 0, 1, 1, 0, 80),
+    (21, 1, 3, 1, 1, 0, 0, 90),
+    (22, 1, 3, 2, 0, 1, 0, 90),
+    (23, 1, 3, 0, 0, 2, 1, 75),
+    (24, 1, 3, 1, 2, 0, 0, 90),
+    (25, 1, 3, 1, 0, 0, 0, 85);
+GO
+
+-- =============================================
+-- 7.12 GHI CHÚ CẦU THỦ
 -- =============================================
 
 INSERT INTO PlayerNotes (PlayerID, NoteContent)
@@ -673,6 +710,28 @@ INSERT INTO PlayerAttachments (PlayerID, FileName, FilePath)
 VALUES
 (1, N'quang_hai_profile.pdf', N'/files/quang_hai_profile.pdf'),
 (4, N'hung_dung_stats.xlsx', N'/files/hung_dung_stats.xlsx');
+GO
+
+-- =============================================
+-- 7.14 CẬP NHẬT PASSWORD HASH (MinhQuan)
+-- Hash password từ plain text sang SHA256
+-- =============================================
+
+IF EXISTS (SELECT 1 FROM sys.objects WHERE type = 'FN' AND name = 'fn_HashPassword')
+    DROP FUNCTION dbo.fn_HashPassword
+GO
+
+CREATE FUNCTION dbo.fn_HashPassword(@Password NVARCHAR(255))
+RETURNS NVARCHAR(64)
+AS
+BEGIN
+    RETURN CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', @Password), 2)
+END
+GO
+
+UPDATE Users 
+SET PasswordHash = dbo.fn_HashPassword('123')
+WHERE PasswordHash = '123';
 GO
 
 PRINT N'=============================================';
