@@ -604,6 +604,77 @@ INSERT INTO Standings (TournamentID, TeamID, Position, MatchesPlayed, Wins, Draw
     (1, 5, 5, 2, 0, 0, 2, 1, 5);
 GO
 
+-- =============================================
+-- 7.9 CẦU THỦ MẪU (Việt)
+-- TeamID 1-5 = Hà Nội..Thanh Hóa
+-- =============================================
+
+INSERT INTO Players 
+(TeamID, PlayerName, DateOfBirth, Nationality,
+ JerseyNumber, Position, SubPosition,
+ PreferredFoot, HeightCm, WeightKg,
+ Status, TechnicalScore)
+VALUES
+(1, N'Nguyễn Quang Hải', '1997-04-12', N'Việt Nam',
+ 19, N'MF', N'Attacking Midfielder',
+ N'Trái', 168, 65,
+ N'Sẵn sàng', 9),
+
+(1, N'Phạm Tuấn Hải', '1998-05-19', N'Việt Nam',
+ 9, N'FW', N'Striker',
+ N'Phải', 178, 72,
+ N'Sẵn sàng', 8),
+
+(2, N'Nguyễn Công Phượng', '1995-01-21', N'Việt Nam',
+ 10, N'FW', N'Second Striker',
+ N'Phải', 168, 63,
+ N'Sẵn sàng', 8),
+
+(3, N'Đỗ Hùng Dũng', '1993-09-08', N'Việt Nam',
+ 88, N'MF', N'Central Midfielder',
+ N'Phải', 170, 67,
+ N'Sẵn sàng', 8),
+
+(4, N'Bùi Tiến Dũng', '1995-10-02', N'Việt Nam',
+ 1, N'GK', N'Goalkeeper',
+ N'Phải', 181, 78,
+ N'Sẵn sàng', 7),
+
+(5, N'Đoàn Văn Hậu', '1999-04-19', N'Việt Nam',
+ 5, N'DF', N'Left Back',
+ N'Trái', 185, 79,
+ N'Sẵn sàng', 8);
+GO
+
+-- =============================================
+-- 7.10 THỐNG KÊ TỔNG CẦU THỦ
+-- =============================================
+
+INSERT INTO PlayerGeneralStatistics (PlayerID)
+SELECT PlayerID FROM Players;
+GO
+
+-- =============================================
+-- 7.11 GHI CHÚ CẦU THỦ
+-- =============================================
+
+INSERT INTO PlayerNotes (PlayerID, NoteContent)
+VALUES
+(1, N'Cầu thủ có kỹ thuật tốt và khả năng sút xa nguy hiểm.'),
+(3, N'Từng thi đấu ở nước ngoài.'),
+(6, N'Hậu vệ có thể lực và khả năng tranh chấp mạnh.');
+GO
+
+-- =============================================
+-- 7.12 FILE ĐÍNH KÈM CẦU THỦ
+-- =============================================
+
+INSERT INTO PlayerAttachments (PlayerID, FileName, FilePath)
+VALUES
+(1, N'quang_hai_profile.pdf', N'/files/quang_hai_profile.pdf'),
+(4, N'hung_dung_stats.xlsx', N'/files/hung_dung_stats.xlsx');
+GO
+
 PRINT N'=============================================';
 PRINT N'✅ FootballDB_Master.sql — Tạo database thành công!';
 PRINT N'=============================================';
