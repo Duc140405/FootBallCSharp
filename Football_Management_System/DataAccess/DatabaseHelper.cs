@@ -190,6 +190,88 @@ namespace Football_Management_System.DataAccess
 
         #endregion
 
+        #region Team / Player Operations
+
+        /// <summary>
+        /// Lấy số lượng đội
+        /// </summary>
+        public int GetTeamsCount()
+        {
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("SELECT COUNT(*) FROM Teams", conn))
+                {
+                    var result = cmd.ExecuteScalar();
+                    return result != null ? Convert.ToInt32(result) : 0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Lấy số lượng cầu thủ
+        /// </summary>
+        public int GetPlayersCount()
+        {
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("SELECT COUNT(*) FROM Players", conn))
+                {
+                    var result = cmd.ExecuteScalar();
+                    return result != null ? Convert.ToInt32(result) : 0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Lấy thống kê theo đội: tên đội, số cầu thủ, số trận
+        /// </summary>
+        public List<TeamStat> GetTeamStats()
+        {
+            var list = new List<TeamStat>();
+
+            using (var conn = GetConnection())
+            {
+                conn.Open();
+
+                string query = @"
+SELECT t.TeamName AS Team,
+       ISNULL(p.PlayerCount, 0) AS Players,
+       ISNULL(m.MatchCount, 0) AS Matches
+FROM Teams t
+LEFT JOIN (
+    SELECT TeamId, COUNT(*) AS PlayerCount FROM Players GROUP BY TeamId
+) p ON p.TeamId = t.TeamId
+LEFT JOIN (
+    SELECT TeamId, SUM(CountMatches) AS MatchCount FROM (
+        SELECT HomeTeamId AS TeamId, COUNT(*) AS CountMatches FROM Matches GROUP BY HomeTeamId
+        UNION ALL
+        SELECT AwayTeamId AS TeamId, COUNT(*) AS CountMatches FROM Matches GROUP BY AwayTeamId
+    ) x GROUP BY TeamId
+) m ON m.TeamId = t.TeamId
+ORDER BY t.TeamName";
+
+                using (var cmd = new SqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new TeamStat
+                        {
+                            Team = reader.IsDBNull(reader.GetOrdinal("Team")) ? string.Empty : reader.GetString(reader.GetOrdinal("Team")),
+                            Players = reader.IsDBNull(reader.GetOrdinal("Players")) ? 0 : reader.GetInt32(reader.GetOrdinal("Players")),
+                            Matches = reader.IsDBNull(reader.GetOrdinal("Matches")) ? 0 : reader.GetInt32(reader.GetOrdinal("Matches"))
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        #endregion
+
         #region Helper Methods
 
         private Match MapToMatch(SqlDataReader reader)
@@ -240,5 +322,15 @@ namespace Football_Management_System.DataAccess
         public int TongTran { get; set; }
         public int DaCoKetQua { get; set; }
         public int ChuaCoKetQua { get; set; }
+    }
+
+    /// <summary>
+    /// Lớp chứa thống kê theo đội
+    /// </summary>
+    public class TeamStat
+    {
+        public string Team { get; set; }
+        public int Players { get; set; }
+        public int Matches { get; set; }
     }
 }
