@@ -198,6 +198,7 @@
     <None Include="Database\FootballDB_Schema.sql" />
     <None Include="Database\FootballDB_All.sql" />
     <None Include="Database\FootballDB_Master.sql" />
+    <None Include="Database\UpdatePasswordHash.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
