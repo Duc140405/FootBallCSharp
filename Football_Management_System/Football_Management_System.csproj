@@ -37,7 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -154,7 +161,18 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataAccess\DatabaseHelper.cs" />
+    <Compile Include="DataAccess\FootballDbContext.cs" />
+    <Compile Include="Models\Coach.cs" />
+    <Compile Include="Models\CoachHistory.cs" />
+    <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\MatchResult.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerRelated.cs" />
+    <Compile Include="Models\Round.cs" />
+    <Compile Include="Models\Standing.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\Tournament.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Statistics\Models\AwardModel.cs" />
     <Compile Include="Statistics\Models\PlayerStatistic.cs" />
     <Compile Include="Statistics\Models\TournamentStatistic.cs" />
@@ -165,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Database\FootballDB_Schema.sql" />
     <None Include="Database\FootballDB_All.sql" />
     <None Include="Database\FootballDB_Master.sql" />

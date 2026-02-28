@@ -193,13 +193,13 @@
                               GridLinesVisibility="Horizontal"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Đội Nhà" Binding="{Binding HomeTeam}" Width="110"/>
-                            <DataGridTextColumn Header="Đội Khách" Binding="{Binding AwayTeam}" Width="110"/>
+                            <DataGridTextColumn Header="Đội Nhà" Binding="{Binding HomeTeamName}" Width="110"/>
+                            <DataGridTextColumn Header="Đội Khách" Binding="{Binding AwayTeamName}" Width="110"/>
                             <DataGridTextColumn Header="Ngày" Binding="{Binding MatchDate, StringFormat=dd/MM/yyyy}" Width="90"/>
                             <DataGridTextColumn Header="Kết Quả" Binding="{Binding Result}" Width="70"/>
                             <DataGridTextColumn Header="🟨" Binding="{Binding TotalYellow}" Width="40"/>
                             <DataGridTextColumn Header="🟥" Binding="{Binding TotalRed}" Width="40"/>
-                            <DataGridTextColumn Header="Trạng Thái" Binding="{Binding Status}" Width="90"/>
+                            <DataGridTextColumn Header="Trạng Thái" Binding="{Binding MatchStatus}" Width="90"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>
