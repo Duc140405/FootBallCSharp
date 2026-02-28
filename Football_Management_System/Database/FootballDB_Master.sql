@@ -547,10 +547,22 @@ INSERT INTO Users (Username, PasswordHash, Email, FullName, RoleID)
 VALUES (N'admin', N'123', N'admin@football.com', N'Administrator', 1);
 GO
 
+DELETE FROM Tournaments; 
+GO
 -- 7.2 Giải đấu
-INSERT INTO Tournaments (TournamentName, Season, StartDate, EndDate, Status) VALUES 
-    (N'Giải VĐQG 2026', N'2026', '2026-01-01', '2026-12-31', N'Đang diễn ra'),
-    (N'Cup Sinh viên 2026', N'2026', '2026-03-01', '2026-06-30', N'Đang diễn ra');
+INSERT INTO Tournaments (TournamentName, TotalRounds,Season, StartDate, EndDate, Status) VALUES 
+    (N'Giải VĐQG 2026', 16, '2026-01-01', '2026-12-31', N'Đang diễn ra'),
+    (N'Cup Sinh viên 2026', 24 , '2026-03-01', '2026-06-30', N'Đang diễn ra');
+    (N'Giải Ngoại Hạng Anh', 38, N'2024-2025', '2024-08-16', '2025-05-25', N'Đang diễn ra'),
+    (N'V-League 1', 26, N'2024-2025', '2024-09-14', '2025-06-15', N'Đang diễn ra'),
+    (N'UEFA Champions League', 13, N'2024-2025', '2024-09-17', '2025-05-31', N'Đang diễn ra'),
+    (N'La Liga', 38, N'2024-2025', '2024-08-15', '2025-05-25', N'Đang diễn ra'),
+    (N'Bundesliga', 34, N'2024-2025', '2024-08-23', '2025-05-17', N'Đang diễn ra'),
+    (N'Serie A', 38, N'2024-2025', '2024-08-18', '2025-05-25', N'Đang diễn ra'),
+    (N'Euro 2024', 7, N'2024', '2024-06-14', '2024-07-14', N'Đã kết thúc'),
+    (N'Cúp Nhà Vua Tây Ban Nha', 8, N'2023-2024', '2023-10-31', '2024-04-06', N'Đã kết thúc'),
+    (N'AFF Cup 2024', 8, N'2024', '2024-12-08', '2025-01-05', N'Chưa bắt đầu'),
+    (N'World Cup 2026 - Vòng loại', 18, N'2026', '2023-09-07', '2026-03-31', N'Chưa bắt đầu');
 GO
 
 -- 7.3 HLV
