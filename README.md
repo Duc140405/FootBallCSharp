@@ -39,6 +39,7 @@ Football_Management_System/
         AssemblyInfo.cs
 
     LoginWindow.xaml / .cs
+    DashboardWindow.xaml / .cs
     QuanLyGiaiDau.xaml / .cs
     QuanLyDoiBong.xaml / .cs
     PlayerManagement.xaml / .cs
@@ -103,7 +104,9 @@ Window: Lich thi dau
 - Hien thi lich theo vong / doi
 
 Duc (thanh vien 7)
-Window: Ket qua tran dau
+Window: Dashboard + Ket qua tran dau
+- Dashboard tong quan he thong (KPI cards, tran dau gan day, thong tin nhanh, tong quan doi bong)
+- Dieu huong trung tam den tat ca module
 - Nhap ket qua tran
 - Ban thang, the phat
 - Cap nhat ket qua vao he thong
