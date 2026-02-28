@@ -66,13 +66,62 @@ Football_Management_System/
 
 PHAN CONG NHIEM VU CHI TIET
 
- 1. Quan       - LoginWindow                - Dang nhap he thong, phan quyen Admin va Nguoi quan ly, kiem tra hop le tai khoan
- 2. Chinh      - QuanLyGiaiDau              - Them, sua, xoa giai dau, thiet lap so vong dau, thoi gian bat dau va ket thuc
- 3. Bao        - QuanLyDoiBong              - Them, sua, xoa doi bong, thong tin doi (ten, logo, HLV), gan doi vao giai dau
- 4. Viet       - PlayerManagement           - Them, sua, xoa cau thu, so ao, vi tri, ngay sinh, gan cau thu cho doi
- 5. Dat        - CoachManagementWindow      - Thong tin HLV, gan HLV cho doi bong, theo doi lich su dan dat
- 6. Hien       - LichThiDau                 - Tao lich thi dau tu dong, chinh sua lich, hien thi lich theo vong hoac doi
- 7. Duc        - MatchResultWindow          - Nhap ket qua tran, ban thang, the phat, cap nhat ket qua vao he thong
- 8. Do         - StandingsWindow            - Tu dong tinh diem, sap xep theo diem va hieu so, cap nhat theo thoi gian thuc
- 9. Phuc       - StatisticsWindow           - Vua pha luoi, cau thu kien tao, thong ke so ban thang va the
-10. Huy        - ReportWindow               - Xuat bao cao PDF va Excel, thong ke tong quan giai dau, ho tro in an
+Quan (thanh vien 1)
+Window: Dang nhap va phan quyen
+- Dang nhap he thong
+- Phan quyen Admin / Nguoi quan ly
+- Kiem tra hop le tai khoan
+
+Chinh (thanh vien 2)
+Window: Quan ly giai dau
+- Them / sua / xoa giai dau
+- Thiet lap so vong dau
+- Thoi gian bat dau va ket thuc
+
+Bao (thanh vien 3)
+Window: Quan ly doi bong
+- Them / sua / xoa doi bong
+- Thong tin doi (ten, logo, HLV)
+- Gan doi vao giai dau
+
+Viet (thanh vien 4)
+Window: Quan ly cau thu
+- Them / sua / xoa cau thu
+- So ao, vi tri, ngay sinh
+- Gan cau thu cho doi
+
+Dat (thanh vien 5)
+Window: Quan ly huan luyen vien
+- Thong tin HLV
+- Gan HLV cho doi bong
+- Theo doi lich su dan dat
+
+Hien (thanh vien 6)
+Window: Lich thi dau
+- Tao lich thi dau tu dong
+- Chinh sua lich
+- Hien thi lich theo vong / doi
+
+Duc (thanh vien 7)
+Window: Ket qua tran dau
+- Nhap ket qua tran
+- Ban thang, the phat
+- Cap nhat ket qua vao he thong
+
+Do (thanh vien 8)
+Window: Bang xep hang
+- Tu dong tinh diem
+- Sap xep theo diem, hieu so
+- Cap nhat theo thoi gian thuc
+
+Phuc (thanh vien 9)
+Window: Thong ke va giai thuong
+- Vua pha luoi
+- Cau thu kien tao
+- Thong ke so ban thang, the
+
+Huy (thanh vien 10)
+Window: Bao cao va xuat du lieu
+- Xuat bao cao PDF / Excel
+- Thong ke tong quan giai dau
+- Ho tro in an
