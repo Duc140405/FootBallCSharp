@@ -9,7 +9,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="#1E88E5" CornerRadius="8" Margin="5">
-            <TextBlock Text="QUAN LY DOI BONG" Foreground="White" FontSize="22" FontWeight="Bold" VerticalAlignment="Center" Margin="20,0"/>
+            <TextBlock Text="QUẢN LÝ ĐỘI BÓNG" Foreground="White" FontSize="22" FontWeight="Bold" VerticalAlignment="Center" Margin="20,0"/>
         </Border>
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
@@ -19,25 +19,27 @@
             <Border Background="#FAFAFA" CornerRadius="8" Padding="10" Margin="0,0,5,0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <TextBlock Text="Thong Tin Doi Bong" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
-                        <TextBlock Text="Ten doi" Margin="0,0,0,3"/>
+                        <TextBlock Text="Thông Tin Đội Bóng" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Tên đội" Margin="0,0,0,3"/>
                         <TextBox x:Name="txtTeamName" Height="28"/>
-                        <TextBlock Text="Ten viet tat" Margin="0,10,0,3"/>
+                        <TextBlock Text="Tên viết tắt" Margin="0,10,0,3"/>
                         <TextBox x:Name="txtShortName" Height="28"/>
-                        <TextBlock Text="San van dong" Margin="0,10,0,3"/>
+                        <TextBlock Text="Sân vận động" Margin="0,10,0,3"/>
                         <TextBox x:Name="txtStadium" Height="28"/>
-                        <TextBlock Text="Giai dau" Margin="0,10,0,3"/>
+                        <TextBlock Text="Giải đấu" Margin="0,10,0,3"/>
                         <ComboBox x:Name="cboTournament" Height="28" DisplayMemberPath="TournamentName" SelectedValuePath="TournamentID"/>
-                        <TextBlock Text="Trang thai" Margin="0,10,0,3"/>
+                        <TextBlock Text="HLV" Margin="0,10,0,3"/>
+                        <ComboBox x:Name="cboHLV" Height="28" DisplayMemberPath="CoachName" SelectedValuePath="CoachID"/>
+                        <TextBlock Text="Trạng thái" Margin="0,10,0,3"/>
                         <ComboBox x:Name="cboStatus" Height="28">
                             <ComboBoxItem Content="Dang thi dau"/>
                             <ComboBoxItem Content="Tam dung"/>
                         </ComboBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
-                            <Button Content="Them" Width="70" Height="30" Margin="5" Background="#43A047" Foreground="White" Click="btnAdd_Click"/>
-                            <Button Content="Sua" Width="70" Height="30" Margin="5" Background="#FB8C00" Foreground="White" Click="btnEdit_Click"/>
-                            <Button Content="Xoa" Width="70" Height="30" Margin="5" Background="#E53935" Foreground="White" Click="btnDelete_Click"/>
-                            <Button Content="Lam moi" Width="70" Height="30" Margin="5" Background="#607D8B" Foreground="White" Click="btnClear_Click"/>
+                            <Button Content="Thêm" Width="70" Height="30" Margin="5" Background="#43A047" Foreground="White" Click="btnAdd_Click"/>
+                            <Button Content="Sửa" Width="70" Height="30" Margin="5" Background="#FB8C00" Foreground="White" Click="btnEdit_Click"/>
+                            <Button Content="Xoá" Width="70" Height="30" Margin="5" Background="#E53935" Foreground="White" Click="btnDelete_Click"/>
+                            <Button Content="Làm mới" Width="70" Height="30" Margin="5" Background="#607D8B" Foreground="White" Click="btnClear_Click"/>
                         </StackPanel>
                         <Border Background="#E3F2FD" CornerRadius="5" Padding="8" Margin="0,10,0,0">
                             <TextBlock x:Name="txtStatus" Text="San sang..." TextWrapping="Wrap"/>
@@ -49,10 +51,12 @@
                 <DataGrid x:Name="dgTeams" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
                           SelectionChanged="dgTeams_SelectionChanged">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Ten Doi" Binding="{Binding TeamName}" Width="*"/>
-                        <DataGridTextColumn Header="Viet Tat" Binding="{Binding ShortName}" Width="80"/>
-                        <DataGridTextColumn Header="San VD" Binding="{Binding Stadium}" Width="120"/>
-                        <DataGridTextColumn Header="Trang Thai" Binding="{Binding Status}" Width="100"/>
+                        <DataGridTextColumn Header="Tên Đội" Binding="{Binding TeamName}" Width="*"/>
+                        <DataGridTextColumn Header="Viết Tắt" Binding="{Binding ShortName}" Width="0.5*"/>
+                        <DataGridTextColumn Header="HLV" Binding="{Binding Coach.CoachName}" Width="*"/>
+                        <DataGridTextColumn Header="Sân VD" Binding="{Binding Stadium}" Width="*"/>
+                        <DataGridTextColumn Header="Giải Đấu" Binding="{Binding Tournament.TournamentName}" Width="*"/>
+                        <DataGridTextColumn Header="Trạng Thái" Binding="{Binding Status}" Width="0.75*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

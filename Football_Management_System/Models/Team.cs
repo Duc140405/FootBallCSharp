@@ -18,9 +18,6 @@ namespace Football_Management_System.Models
         [StringLength(50)]
         public string ShortName { get; set; }
 
-        [StringLength(255)]
-        public string LogoPath { get; set; }
-
         [StringLength(200)]
         public string Stadium { get; set; }
 
@@ -29,7 +26,6 @@ namespace Football_Management_System.Models
 
         public int? TournamentID { get; set; }
         public int? CoachID { get; set; }
-        public int? FoundedYear { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
 

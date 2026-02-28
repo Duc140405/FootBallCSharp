@@ -63,7 +63,6 @@ CREATE TABLE Teams (
     TeamID INT IDENTITY(1,1) PRIMARY KEY,
     TeamName NVARCHAR(200) NOT NULL,
     ShortName NVARCHAR(50),
-    LogoPath NVARCHAR(255),
     Stadium NVARCHAR(200),
     Status NVARCHAR(50),
     TournamentID INT NULL,
@@ -563,17 +562,15 @@ GO
 
 -- 7.4 Đội bóng
 INSERT INTO Teams (TeamName, ShortName, Stadium, CoachID, TournamentID) VALUES 
-    (N'Hà Nội FC', N'HN', N'Sân Hàng Đẫy', 1, 1),
+    (N'Hà Nội FC', N'HNFC', N'Sân Hàng Đẫy', 1, 1),
     (N'Hoàng Anh Gia Lai', N'HAGL', N'Sân Pleiku', 2, 1),
-    (N'Sài Gòn FC', N'SG', N'Sân Thống Nhất', 3, 1),
-    (N'Viettel FC', N'VT', N'Sân Hàng Đẫy', NULL, 1),
-    (N'Thanh Hóa FC', N'TH', N'Sân Thanh Hóa', NULL, 1),
-    (N'Manchester United', NULL, NULL, NULL, NULL),
-    (N'Manchester City', NULL, NULL, NULL, NULL),
-    (N'Liverpool', NULL, NULL, NULL, NULL),
-    (N'Chelsea', NULL, NULL, NULL, NULL),
-    (N'Arsenal', NULL, NULL, NULL, NULL),
-    (N'Tottenham', NULL, NULL, NULL, NULL);
+    (N'Sài Gòn FC', N'SGFC', N'Sân Thống Nhất', 3, 1),
+    (N'Viettel FC', N'VTFC', N'Sân Hàng Đẫy', NULL, 1),
+    (N'Thanh Hóa FC', N'THFC', N'Sân Thanh Hóa', NULL, 1),
+    (N'Manchester United', N'MUN', N'Sân Old Trafford', 1, 2),
+    (N'SHB Đà Nẵng', N'SHBDN', N'Sân Hòa Xuân', 2, 1),
+	(N'Công An Hà Nội', N'CAHN', N'Sân Hàng Đẫy', 1,1),
+	(N'Thép Xanh Nam Định', N'TXND',N'Sân Thiên Trường',1,1);
 GO
 
 -- 7.5 Vòng đấu (QuocDo)

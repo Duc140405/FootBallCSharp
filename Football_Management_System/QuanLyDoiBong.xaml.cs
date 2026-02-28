@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Football_Management_System.DataAccess;
 using Football_Management_System.Models;
+using System.Data.Entity;
 
 namespace Football_Management_System
 {
@@ -23,8 +24,14 @@ namespace Football_Management_System
             {
                 using (var db = new FootballDbContext())
                 {
-                    dgTeams.ItemsSource = db.Teams.ToList();
+                    dgTeams.ItemsSource = db.Teams
+                        .Include(t => t.Coach)
+                        .Include(t => t.Tournament)
+                        .ToList();
+
+                    cboHLV.ItemsSource = db.Coaches.ToList();
                     cboTournament.ItemsSource = db.Tournaments.ToList();
+
                 }
                 txtStatus.Text = "Da tai du lieu.";
             }
@@ -43,6 +50,7 @@ namespace Football_Management_System
                 txtShortName.Text = team.ShortName;
                 txtStadium.Text = team.Stadium;
                 cboTournament.SelectedValue = team.TournamentID;
+                cboHLV.SelectedValue = team.CoachID;
 
                 foreach (ComboBoxItem item in cboStatus.Items)
                 {
@@ -73,6 +81,7 @@ namespace Football_Management_System
                         ShortName = txtShortName.Text.Trim(),
                         Stadium = txtStadium.Text.Trim(),
                         TournamentID = cboTournament.SelectedValue as int?,
+                        CoachID = cboHLV.SelectedValue as int?,
                         Status = (cboStatus.SelectedItem as ComboBoxItem)?.Content.ToString(),
                         CreatedDate = DateTime.Now
                     };
@@ -108,6 +117,7 @@ namespace Football_Management_System
                         team.ShortName = txtShortName.Text.Trim();
                         team.Stadium = txtStadium.Text.Trim();
                         team.TournamentID = cboTournament.SelectedValue as int?;
+                        team.CoachID = cboHLV.SelectedValue as int?;
                         team.Status = (cboStatus.SelectedItem as ComboBoxItem)?.Content.ToString();
                         db.SaveChanges();
                         txtStatus.Text = "Da cap nhat doi: " + team.TeamName;
@@ -170,6 +180,7 @@ namespace Football_Management_System
             txtShortName.Text = "";
             txtStadium.Text = "";
             cboTournament.SelectedItem = null;
+            cboHLV.SelectedItem = null;
             cboStatus.SelectedItem = null;
         }
     }
