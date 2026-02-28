@@ -1,213 +1,73 @@
 ﻿<Window x:Class="Football_Management_System.PlayerManagement"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Quản lý cầu thủ"
-        Height="1114.036"
-        Width="1221.053"
-        WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5">
-
+        Title="Quan ly cau thu" Height="650" Width="1000"
+        WindowStartupLocation="CenterScreen" Background="#F5F5F5">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-
         <Border Background="#1E88E5" CornerRadius="10" Padding="15">
-            <TextBlock Text="QUẢN LÝ CẦU THỦ BÓNG ĐÁ"
-                       Foreground="White"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       VerticalAlignment="Center"/>
+            <TextBlock Text="QUAN LY CAU THU BONG DA" Foreground="White" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
         </Border>
-
-
         <Grid Grid.Row="1" Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="420"/>
+                <ColumnDefinition Width="320"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-
-            <Border Background="White"
-                    CornerRadius="10"
-                    Padding="15"
-                    Margin="0,0,10,0">
-
+            <Border Background="White" CornerRadius="10" Padding="15" Margin="0,0,10,0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-
-
-                        <StackPanel HorizontalAlignment="Center" Margin="0,0,0,15">
-                            <Grid Width="120" Height="120">
-                                <Ellipse Stroke="#BDBDBD" StrokeThickness="1"/>
-                                <Image x:Name="imgAvatar"
-                                       Stretch="UniformToFill"
-                                       ClipToBounds="True"/>
-                            </Grid>
-
-                            <Button Content="Chọn ảnh cầu thủ"
-                                    Width="140"
-                                    Margin="0,8,0,0"/>
-                        </StackPanel>
-
-
-                        <TextBlock Text="1. Thông Tin Cá Nhân"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Margin="0,0,0,10"/>
-
-                        <Label Content="Họ và tên"/>
-                        <TextBox Height="30"/>
-
-                        <Label Content="Ngày sinh"/>
-                        <DatePicker Height="30"/>
-
-                        <Label Content="Quốc tịch"/>
-                        <TextBox Height="30"/>
-
-                        <Label Content="Số áo"/>
-                        <TextBox Height="30"/>
-
-                        <Label Content="Vị trí chính"/>
-                        <ComboBox Height="30">
-                            <ComboBoxItem Content="Thủ môn"/>
-                            <ComboBoxItem Content="Hậu vệ"/>
-                            <ComboBoxItem Content="Tiền vệ"/>
-                            <ComboBoxItem Content="Tiền đạo"/>
+                        <TextBlock Text="Thong Tin Cau Thu" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Ho va ten" Margin="0,0,0,3"/>
+                        <TextBox x:Name="txtPlayerName" Height="28"/>
+                        <TextBlock Text="Doi bong" Margin="0,10,0,3"/>
+                        <ComboBox x:Name="cboTeam" Height="28" DisplayMemberPath="TeamName" SelectedValuePath="TeamID"/>
+                        <TextBlock Text="Ngay sinh" Margin="0,10,0,3"/>
+                        <DatePicker x:Name="dpDateOfBirth" Height="28"/>
+                        <TextBlock Text="Quoc tich" Margin="0,10,0,3"/>
+                        <TextBox x:Name="txtNationality" Height="28"/>
+                        <TextBlock Text="So ao" Margin="0,10,0,3"/>
+                        <TextBox x:Name="txtJerseyNumber" Height="28"/>
+                        <TextBlock Text="Vi tri" Margin="0,10,0,3"/>
+                        <ComboBox x:Name="cboPosition" Height="28">
+                            <ComboBoxItem Content="GK"/>
+                            <ComboBoxItem Content="DF"/>
+                            <ComboBoxItem Content="MF"/>
+                            <ComboBoxItem Content="FW"/>
                         </ComboBox>
-
-                        <Label Content="Vị trí phụ"/>
-                        <TextBox Height="30"/>
-
-                        <Label Content="Chân thuận"/>
-                        <ComboBox Height="30">
-                            <ComboBoxItem Content="Phải"/>
-                            <ComboBoxItem Content="Trái"/>
-                            <ComboBoxItem Content="Cả hai"/>
+                        <TextBlock Text="Trang thai" Margin="0,10,0,3"/>
+                        <ComboBox x:Name="cboStatus" Height="28">
+                            <ComboBoxItem Content="San sang"/>
+                            <ComboBoxItem Content="Chan thuong"/>
+                            <ComboBoxItem Content="Treo gio"/>
                         </ComboBox>
-
-                        <Label Content="Chiều cao (cm) / Cân nặng (kg)"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Width="100" Margin="0,0,10,0"/>
-                            <TextBox Width="100"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                            <Button Content="Them" Width="70" Height="30" Margin="5" Background="#43A047" Foreground="White" Click="btnAdd_Click"/>
+                            <Button Content="Sua" Width="70" Height="30" Margin="5" Background="#FB8C00" Foreground="White" Click="btnEdit_Click"/>
+                            <Button Content="Xoa" Width="70" Height="30" Margin="5" Background="#E53935" Foreground="White" Click="btnDelete_Click"/>
+                            <Button Content="Lam moi" Width="70" Height="30" Margin="5" Background="#607D8B" Foreground="White" Click="btnClear_Click"/>
                         </StackPanel>
-
-
-                        <TextBlock Text="2. Chuyên Môn và Thể Lực"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Margin="0,20,0,10"/>
-
-                        <Label Content="Trạng thái"/>
-                        <ComboBox Height="30">
-                            <ComboBoxItem Content="Sẵn sàng"/>
-                            <ComboBoxItem Content="Chấn thương"/>
-                            <ComboBoxItem Content="Treo giò"/>
-                        </ComboBox>
-
-                        <Label Content="Điểm kỹ thuật (1 - 10)"/>
-                        <StackPanel>
-                            <TextBox Height="30" Margin="0,0,0,5"/>
-                            <TextBox Height="30" Margin="0,0,0,5"/>
-                            <TextBox Height="30" Margin="0,0,0,5"/>
-                            <TextBox Height="30"/>
-                        </StackPanel>
-
-
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,20,0,0">
-                            <Button Content="Thêm"
-                                    Width="80"
-                                    Margin="5"
-                                    Background="#43A047"
-                                    Foreground="White"/>
-                            <Button Content="Sửa"
-                                    Width="80"
-                                    Margin="5"
-                                    Background="#FB8C00"
-                                    Foreground="White"/>
-                            <Button Content="Xóa"
-                                    Width="80"
-                                    Margin="5"
-                                    Background="#E53935"
-                                    Foreground="White"/>
-                        </StackPanel>
-
+                        <Border Background="#E3F2FD" CornerRadius="5" Padding="8" Margin="0,10,0,0">
+                            <TextBlock x:Name="txtStatus" Text="San sang..." TextWrapping="Wrap"/>
+                        </Border>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
-
-
-            <Border Grid.Column="1"
-                    Background="White"
-                    CornerRadius="10"
-                    Padding="10">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-
-                    <StackPanel Grid.Row="1">
-                        <TextBlock Text="Danh Sách Cầu Thủ"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Margin="0,0,0,10"/>
-
-                        <DataGrid AutoGenerateColumns="False"
-                                  CanUserAddRows="False"
-                                  Height="655" Margin="0,0,-0.4,0">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Họ Tên" Width="*"/>
-                                <DataGridTextColumn Header="Số Áo" Width="80"/>
-                                <DataGridTextColumn Header="Vị Trí" Width="120"/>
-                                <DataGridTextColumn Header="Quốc Tịch" Width="120"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-
-
-                    <TabControl Grid.Row="0" Margin="0,10,0,0">
-
-                        <TabItem Header="Thống Kê">
-                            <StackPanel Margin="10">
-                                <Label Content="Số trận"/>
-                                <TextBox Height="30"/>
-
-                                <Label Content="Bàn thắng"/>
-                                <TextBox Height="30"/>
-
-                                <Label Content="Kiến tạo"/>
-                                <TextBox Height="30"/>
-
-                                <Label Content="Thẻ vàng / Thẻ đỏ"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox Width="80" Margin="0,0,10,0"/>
-                                    <TextBox Width="80"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </TabItem>
-
-                        <TabItem Header="Ghi chú">
-                            <StackPanel Margin="10">
-                                <TextBox Height="150"
-                                         AcceptsReturn="True"
-                                         TextWrapping="Wrap"/>
-                                <Button Content="Đính kèm tài liệu"
-                                        Height="30"
-                                        Margin="0,10,0,0"/>
-                            </StackPanel>
-                        </TabItem>
-
-                    </TabControl>
-                </Grid>
+            <Border Grid.Column="1" Background="White" CornerRadius="10" Padding="10">
+                <DataGrid x:Name="dgPlayers" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                          SelectionChanged="dgPlayers_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Ho Ten" Binding="{Binding PlayerName}" Width="*"/>
+                        <DataGridTextColumn Header="Doi" Binding="{Binding Team.TeamName}" Width="120"/>
+                        <DataGridTextColumn Header="So Ao" Binding="{Binding JerseyNumber}" Width="60"/>
+                        <DataGridTextColumn Header="Vi Tri" Binding="{Binding Position}" Width="60"/>
+                        <DataGridTextColumn Header="Quoc Tich" Binding="{Binding Nationality}" Width="100"/>
+                        <DataGridTextColumn Header="Trang Thai" Binding="{Binding Status}" Width="90"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Border>
-
         </Grid>
     </Grid>
 </Window>

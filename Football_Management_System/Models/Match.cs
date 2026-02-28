@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Football_Management_System.Models
 {
@@ -38,8 +39,14 @@ namespace Football_Management_System.Models
         [ForeignKey("AwayTeamID")]
         public virtual Team AwayTeam { get; set; }
 
-        public virtual MatchResult MatchResult { get; set; }
+        public virtual ICollection<MatchResult> MatchResultItems { get; set; }
         public virtual ICollection<PlayerStatistic> PlayerStatistics { get; set; }
+
+        [NotMapped]
+        public MatchResult MatchResult
+        {
+            get { return MatchResultItems != null ? MatchResultItems.FirstOrDefault() : null; }
+        }
 
         [NotMapped]
         public string HomeTeamName
@@ -106,6 +113,7 @@ namespace Football_Management_System.Models
         public Match()
         {
             PlayerStatistics = new HashSet<PlayerStatistic>();
+            MatchResultItems = new HashSet<MatchResult>();
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿<Window x:Class="Football_Management_System.CoachManagementWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Football_Management_System"
-        mc:Ignorable="d"
-        Title="CoachManagementWindow" Height="450" Width="800">
+        Title="Quản lý Huấn luyện viên" Height="550" Width="900"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="7">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -13,92 +10,52 @@
         </Grid.RowDefinitions>
         <Border Background="#1E88E5" CornerRadius="10">
             <TextBlock Text="QUẢN LÝ HUẤN LUYỆN VIÊN BÓNG ĐÁ"
-               Foreground="White"
-               FontSize="22"
-               FontWeight="Bold"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"/>
+               Foreground="White" FontSize="22" FontWeight="Bold"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Label Content="Thông Tin Huấn Luyện Viên" FontSize="18" FontWeight="Bold"/>
-                <Label Content="Mã HLV" Grid.Row="1"/>
-                <TextBox Grid.Row="2" Height="20" Width="300" HorizontalAlignment="Left"/>
-                <Label Content="Họ và tên" Grid.Row="3"/>
-                <TextBox Grid.Row="4" Height="20" Width="300" HorizontalAlignment="Left"/>
-                <Label Content="Ngày sinh" Grid.Row="5"/>
-                <DatePicker Grid.Row="6" Height="25" Width="300" HorizontalAlignment="Left"/>
-                <Label Content="Quốc tịch" Grid.Row="7"/>
-                <ComboBox Grid.Row="8" Height="20" Width="300" HorizontalAlignment="Left">
-                    <ComboBoxItem Content="VietNam"/>
-                    <ComboBoxItem Content="Japan"/>
-                    <ComboBoxItem Content="France"/>
-                </ComboBox>
-                <Label Content="Đội bóng đang dẫn dắt" Grid.Row="9"/>
-                <ComboBox Grid.Row="10" Height="20" Width="300" HorizontalAlignment="Left">
-                    <ComboBoxItem Content="Manchester United"/>
-                    <ComboBoxItem Content="Manchester City"/>
-                </ComboBox>
-                <Label Content="Số năm kinh nghiệm" Grid.Row="11"/>
-                <TextBox Grid.Row="12" Height="20" Width="300" HorizontalAlignment="Left"/>
-                <StackPanel Orientation="Horizontal"   HorizontalAlignment="Center" Grid.Row="13">
-                    <Button Content="Thêm" Width="80" Margin="5" Background="#43A047" Foreground="White"/>
-                    <Button Content="Sửa" Width="80" Margin="5" Background="#FB8C00" Foreground="White"/>
-                    <Button Content="Xóa"  Width="80" Margin="5" Background="#E53935" Foreground="White"/>
-                </StackPanel>
-            </Grid>
-            <Border Grid.Column="1" Background="White" CornerRadius="10">
-                <TabControl>
-                    <TabItem Header="Danh Sách HLV">
-                        <DataGrid AutoGenerateColumns="False"
-                          CanUserAddRows="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Mã HLV" Width="auto"/>
-                                <DataGridTextColumn Header="Họ Tên" Width="*"/>
-                                <DataGridTextColumn Header="Ngày Sinh" Width="auto"/>
-                                <DataGridTextColumn Header="Quốc Tịch" Width="auto"/>
-                                <DataGridTextColumn Header="Đội Bóng" Width="auto"/>
-                                <DataGridTextColumn Header="Kinh Nghiệm" Width="auto"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </TabItem>
-                    <TabItem Header="Lịch Sử Dẫn Dắt">
-                        <DataGrid AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          Margin="5">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="HLV" Width="70"/>
-                                <DataGridTextColumn Header="Đội Bóng" Width="*"/>
-                                <DataGridTextColumn Header="Từ Năm" Width="auto"/>
-                                <DataGridTextColumn Header="Đến Năm" Width="auto"/>
-                                <DataGridTextColumn Header="Thành Tích" Width="*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </TabItem>
-
-                </TabControl>
+            <Border Background="#FAFAFA" CornerRadius="8" Padding="10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Thông Tin HLV" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Họ và tên" Margin="0,0,0,3"/>
+                        <TextBox x:Name="txtCoachName" Height="28"/>
+                        <TextBlock Text="Ngày sinh" Margin="0,10,0,3"/>
+                        <DatePicker x:Name="dpBirthDate" Height="28"/>
+                        <TextBlock Text="Quốc tịch" Margin="0,10,0,3"/>
+                        <TextBox x:Name="txtNationality" Height="28"/>
+                        <TextBlock Text="Đội bóng đang dẫn dắt" Margin="0,10,0,3"/>
+                        <ComboBox x:Name="cboTeam" Height="28" DisplayMemberPath="TeamName" SelectedValuePath="TeamID"/>
+                        <TextBlock Text="Số năm kinh nghiệm" Margin="0,10,0,3"/>
+                        <TextBox x:Name="txtExperience" Height="28"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                            <Button Content="Thêm" Width="70" Height="30" Margin="5" Background="#43A047" Foreground="White" Click="btnAdd_Click"/>
+                            <Button Content="Sửa" Width="70" Height="30" Margin="5" Background="#FB8C00" Foreground="White" Click="btnEdit_Click"/>
+                            <Button Content="Xóa" Width="70" Height="30" Margin="5" Background="#E53935" Foreground="White" Click="btnDelete_Click"/>
+                            <Button Content="🔄" Width="35" Height="30" Margin="5" Background="#607D8B" Foreground="White" Click="btnClear_Click"/>
+                        </StackPanel>
+                        <Border Background="#E3F2FD" CornerRadius="5" Padding="8" Margin="0,10,0,0">
+                            <TextBlock x:Name="txtStatus" Text="Sẵn sàng..." TextWrapping="Wrap"/>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Background="White" CornerRadius="10" Margin="5,0,0,0">
+                <DataGrid x:Name="dgCoaches" AutoGenerateColumns="False"
+                          CanUserAddRows="False" IsReadOnly="True"
+                          SelectionChanged="dgCoaches_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã" Binding="{Binding CoachID}" Width="50"/>
+                        <DataGridTextColumn Header="Họ Tên" Binding="{Binding CoachName}" Width="*"/>
+                        <DataGridTextColumn Header="Ngày Sinh" Binding="{Binding BirthDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                        <DataGridTextColumn Header="Quốc Tịch" Binding="{Binding Nationality}" Width="100"/>
+                        <DataGridTextColumn Header="Kinh Nghiệm" Binding="{Binding ExperienceYears}" Width="90"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Border>
         </Grid>
     </Grid>

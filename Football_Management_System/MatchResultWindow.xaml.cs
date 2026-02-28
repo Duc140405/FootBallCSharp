@@ -30,7 +30,7 @@ namespace Football_Management_System
                     var matches = db.Matches
                         .Include(m => m.HomeTeam)
                         .Include(m => m.AwayTeam)
-                        .Include(m => m.MatchResult)
+                        .Include(m => m.MatchResultItems)
                         .OrderByDescending(m => m.MatchDate)
                         .ToList();
 
@@ -41,11 +41,11 @@ namespace Football_Management_System
                     }
                 }
 
-                txtStatus.Text = "✅ Đã kết nối database thành công!";
+                txtStatus.Text = " Đã kết nối database thành công!";
             }
             catch (Exception ex)
             {
-                txtStatus.Text = "⚠️ Lỗi tải dữ liệu: " + ex.Message;
+                txtStatus.Text = " Lỗi tải dữ liệu: " + ex.Message;
             }
 
             cboMatch.ItemsSource = danhSachTranDau;
@@ -141,17 +141,17 @@ namespace Football_Management_System
         {
             if (string.IsNullOrWhiteSpace(txtHomeTeam.Text))
             {
-                txtStatus.Text = "⚠️ Vui lòng nhập tên đội nhà!";
+                txtStatus.Text = " Vui lòng nhập tên đội nhà!";
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtAwayTeam.Text))
             {
-                txtStatus.Text = "⚠️ Vui lòng nhập tên đội khách!";
+                txtStatus.Text = " Vui lòng nhập tên đội khách!";
                 return;
             }
             if (dpMatchDate.SelectedDate == null)
             {
-                txtStatus.Text = "⚠️ Vui lòng chọn ngày thi đấu!";
+                txtStatus.Text = " Vui lòng chọn ngày thi đấu!";
                 return;
             }
 
@@ -220,7 +220,7 @@ namespace Football_Management_System
             }
             catch (Exception ex)
             {
-                txtStatus.Text = "⚠️ Lỗi thêm trận: " + ex.Message;
+                txtStatus.Text = " Lỗi thêm trận: " + ex.Message;
             }
         }
 
@@ -228,7 +228,7 @@ namespace Football_Management_System
         {
             if (tranDauDangChon == null)
             {
-                txtStatus.Text = "⚠️ Vui lòng chọn trận đấu cần sửa!";
+                txtStatus.Text = " Vui lòng chọn trận đấu cần sửa!";
                 return;
             }
 
@@ -237,7 +237,7 @@ namespace Football_Management_System
                 using (var db = new FootballDbContext())
                 {
                     var match = db.Matches
-                        .Include(m => m.MatchResult)
+                        .Include(m => m.MatchResultItems)
                         .FirstOrDefault(m => m.MatchID == tranDauDangChon.MatchID);
 
                     if (match == null)
@@ -295,7 +295,7 @@ namespace Football_Management_System
             }
             catch (Exception ex)
             {
-                txtStatus.Text = "⚠️ Lỗi cập nhật: " + ex.Message;
+                txtStatus.Text = " Lỗi cập nhật: " + ex.Message;
             }
         }
 
@@ -303,7 +303,7 @@ namespace Football_Management_System
         {
             if (tranDauDangChon == null)
             {
-                txtStatus.Text = "⚠️ Vui lòng chọn trận đấu cần xóa!";
+                txtStatus.Text = " Vui lòng chọn trận đấu cần xóa!";
                 return;
             }
 
@@ -322,7 +322,7 @@ namespace Football_Management_System
                     using (var db = new FootballDbContext())
                     {
                         var match = db.Matches
-                            .Include(m => m.MatchResult)
+                            .Include(m => m.MatchResultItems)
                             .FirstOrDefault(m => m.MatchID == tranDauDangChon.MatchID);
 
                         if (match != null)
@@ -336,7 +336,7 @@ namespace Football_Management_System
                             db.SaveChanges();
                         }
 
-                        txtStatus.Text = "🗑️ Đã xóa: " + tenTran;
+                        txtStatus.Text = " Đã xóa: " + tenTran;
                     }
 
                     LoadData();
@@ -345,7 +345,7 @@ namespace Football_Management_System
                 }
                 catch (Exception ex)
                 {
-                    txtStatus.Text = "⚠️ Lỗi xóa: " + ex.Message;
+                    txtStatus.Text = " Lỗi xóa: " + ex.Message;
                 }
             }
         }
@@ -353,7 +353,7 @@ namespace Football_Management_System
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             XoaForm();
-            txtStatus.Text = "🔄 Đã làm mới form!";
+            txtStatus.Text = " Đã làm mới form!";
         }
 
         private void XoaForm()

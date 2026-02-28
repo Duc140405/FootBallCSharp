@@ -40,9 +40,10 @@ namespace Football_Management_System.DataAccess
                 .HasForeignKey(m => m.AwayTeamID)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Match>()
-                .HasOptional(m => m.MatchResult)
-                .WithRequired(mr => mr.Match);
+            modelBuilder.Entity<MatchResult>()
+                .HasRequired(mr => mr.Match)
+                .WithMany(m => m.MatchResultItems)
+                .HasForeignKey(mr => mr.MatchID);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,5 +1,9 @@
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using Football_Management_System.DataAccess;
+using Football_Management_System.Models;
 
 namespace Football_Management_System
 {
@@ -12,30 +16,99 @@ namespace Football_Management_System
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text;
+            string username = txtUsername.Text.Trim();
             string password = txtPassword.Password;
 
-            if (username == "admin" && password == "123")
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Đăng nhập thành công!");
-            }
-            else
-            {
-                txtError.Text = "Sai tên đăng nhập hoặc mật khẩu!";
+                txtError.Text = "Vui long nhap day du thong tin!";
                 txtError.Visibility = Visibility.Visible;
+                return;
+            }
+
+            try
+            {
+                using (var db = new FootballDbContext())
+                {
+                    var user = db.Users.FirstOrDefault(u => u.Username == username && u.PasswordHash == password && u.IsActive == true);
+
+                    if (user != null)
+                    {
+                        var dashboard = new DashboardWindow(user.FullName);
+                        dashboard.Show();
+                        this.Close();
+                        return;
+                    }
+                    else
+                    {
+                        txtError.Text = "Sai ten dang nhap hoac mat khau!";
+                        txtError.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Loi ket noi: " + ex.Message, "Loi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (txtRegPassword.Password != txtConfirmPassword.Password)
+            string username = txtRegUsername.Text.Trim();
+            string password = txtRegPassword.Password;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Mật khẩu không khớp!");
+                MessageBox.Show("Vui long nhap day du thong tin!");
                 return;
             }
 
-            MessageBox.Show("Đăng ký thành công!");
-            ShowLogin();
+            if (txtRegPassword.Password != txtConfirmPassword.Password)
+            {
+                MessageBox.Show("Mat khau khong khop!");
+                return;
+            }
+
+            try
+            {
+                using (var db = new FootballDbContext())
+                {
+                    var existing = db.Users.FirstOrDefault(u => u.Username == username);
+                    if (existing != null)
+                    {
+                        MessageBox.Show("Ten dang nhap da ton tai!");
+                        return;
+                    }
+
+                    var defaultRole = db.Roles.FirstOrDefault();
+                    if (defaultRole == null)
+                    {
+                        defaultRole = new Role { RoleName = "User" };
+                        db.Roles.Add(defaultRole);
+                        db.SaveChanges();
+                    }
+
+                    var newUser = new User
+                    {
+                        Username = username,
+                        PasswordHash = password,
+                        FullName = username,
+                        RoleID = defaultRole.RoleID,
+                        CreatedDate = DateTime.Now,
+                        IsActive = true
+                    };
+
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
+
+                    MessageBox.Show("Dang ky thanh cong!");
+                    ShowLogin();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Loi dang ky: " + ex.Message, "Loi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ShowRegister_Click(object sender, MouseButtonEventArgs e)
@@ -53,7 +126,7 @@ namespace Football_Management_System
 
         private void ForgotPassword_Click(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Liên hệ admin để cấp lại mật khẩu!");
+            MessageBox.Show("Lien he admin de cap lai mat khau!");
         }
 
         private void ShowLogin()
