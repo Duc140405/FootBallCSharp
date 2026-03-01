@@ -24,14 +24,16 @@ namespace Football_Management_System
             {
                 using (var db = new FootballDbContext())
                 {
+                    // Lấy danh sách cầu thủ và đội bóng
                     dgPlayers.ItemsSource = db.Players.Include(p => p.Team).ToList();
                     cboTeam.ItemsSource = db.Teams.ToList();
                 }
-                txtStatus.Text = "Da tai du lieu.";
+                ShowStatus("Đã tải dữ liệu thành công.", false);
             }
             catch (Exception ex)
             {
-                txtStatus.Text = "Loi tai du lieu: " + ex.Message;
+                ShowStatus("Lỗi tải dữ liệu: " + ex.Message, true);
+                MessageBox.Show("Không thể kết nối CSDL:\n" + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -46,38 +48,18 @@ namespace Football_Management_System
                 txtNationality.Text = player.Nationality;
                 txtJerseyNumber.Text = player.JerseyNumber.HasValue ? player.JerseyNumber.ToString() : "";
 
-                foreach (ComboBoxItem item in cboPosition.Items)
-                {
-                    if (item.Content.ToString() == player.Position)
-                    {
-                        cboPosition.SelectedItem = item;
-                        break;
-                    }
-                }
+                // Tối ưu: Tìm và chọn item trong ComboBox không cần vòng lặp foreach
+                cboPosition.SelectedItem = cboPosition.Items.Cast<ComboBoxItem>()
+                    .FirstOrDefault(item => item.Content.ToString().StartsWith(player.Position ?? ""));
 
-                foreach (ComboBoxItem item in cboStatus.Items)
-                {
-                    if (item.Content.ToString() == player.Status)
-                    {
-                        cboStatus.SelectedItem = item;
-                        break;
-                    }
-                }
+                cboStatus.SelectedItem = cboStatus.Items.Cast<ComboBoxItem>()
+                    .FirstOrDefault(item => item.Content.ToString() == player.Status);
             }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtPlayerName.Text))
-            {
-                txtStatus.Text = "Vui long nhap ten cau thu!";
-                return;
-            }
-            if (cboTeam.SelectedValue == null)
-            {
-                txtStatus.Text = "Vui long chon doi bong!";
-                return;
-            }
+            if (!ValidateInput()) return;
 
             try
             {
@@ -90,20 +72,23 @@ namespace Football_Management_System
                         DateOfBirth = dpDateOfBirth.SelectedDate,
                         Nationality = txtNationality.Text.Trim(),
                         JerseyNumber = int.TryParse(txtJerseyNumber.Text, out int jn) ? jn : (int?)null,
-                        Position = (cboPosition.SelectedItem as ComboBoxItem)?.Content.ToString(),
-                        Status = (cboStatus.SelectedItem as ComboBoxItem)?.Content.ToString(),
+                        // Cắt chuỗi để chỉ lấy "GK", "DF" (nếu bạn dùng giao diện XAML mới có chứa tiếng Việt)
+                        Position = GetSelectedComboBoxString(cboPosition)?.Split(' ')[0],
+                        Status = GetSelectedComboBoxString(cboStatus),
                         CreatedDate = DateTime.Now
                     };
+
                     db.Players.Add(player);
                     db.SaveChanges();
-                    txtStatus.Text = "Da them cau thu: " + player.PlayerName;
+                    ShowStatus($"Đã thêm cầu thủ: {player.PlayerName}", false);
                 }
                 LoadData();
                 ClearForm();
             }
             catch (Exception ex)
             {
-                txtStatus.Text = "Loi them: " + ex.Message;
+                ShowStatus("Lỗi thêm cầu thủ.", true);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -111,9 +96,11 @@ namespace Football_Management_System
         {
             if (selectedPlayer == null)
             {
-                txtStatus.Text = "Vui long chon cau thu can sua!";
+                MessageBox.Show("Vui lòng chọn cầu thủ cần sửa từ danh sách!", "Chú ý", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
+            if (!ValidateInput()) return;
 
             try
             {
@@ -127,17 +114,19 @@ namespace Football_Management_System
                         player.DateOfBirth = dpDateOfBirth.SelectedDate;
                         player.Nationality = txtNationality.Text.Trim();
                         player.JerseyNumber = int.TryParse(txtJerseyNumber.Text, out int jn) ? jn : (int?)null;
-                        player.Position = (cboPosition.SelectedItem as ComboBoxItem)?.Content.ToString();
-                        player.Status = (cboStatus.SelectedItem as ComboBoxItem)?.Content.ToString();
+                        player.Position = GetSelectedComboBoxString(cboPosition)?.Split(' ')[0];
+                        player.Status = GetSelectedComboBoxString(cboStatus);
+
                         db.SaveChanges();
-                        txtStatus.Text = "Da cap nhat cau thu: " + player.PlayerName;
+                        ShowStatus($"Đã cập nhật cầu thủ: {player.PlayerName}", false);
                     }
                 }
                 LoadData();
             }
             catch (Exception ex)
             {
-                txtStatus.Text = "Loi cap nhat: " + ex.Message;
+                ShowStatus("Lỗi cập nhật dữ liệu.", true);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -145,12 +134,12 @@ namespace Football_Management_System
         {
             if (selectedPlayer == null)
             {
-                txtStatus.Text = "Vui long chon cau thu can xoa!";
+                MessageBox.Show("Vui lòng chọn cầu thủ cần xóa!", "Chú ý", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            var result = MessageBox.Show("Ban co chac muon xoa cau thu: " + selectedPlayer.PlayerName + "?",
-                "Xac nhan", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa cầu thủ: {selectedPlayer.PlayerName}?",
+                "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -163,7 +152,7 @@ namespace Football_Management_System
                         {
                             db.Players.Remove(player);
                             db.SaveChanges();
-                            txtStatus.Text = "Da xoa cau thu.";
+                            ShowStatus("Đã xóa cầu thủ thành công.", false);
                         }
                     }
                     LoadData();
@@ -171,7 +160,8 @@ namespace Football_Management_System
                 }
                 catch (Exception ex)
                 {
-                    txtStatus.Text = "Loi xoa: " + ex.Message;
+                    ShowStatus("Lỗi xóa cầu thủ.", true);
+                    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -179,20 +169,53 @@ namespace Football_Management_System
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             ClearForm();
-            txtStatus.Text = "Da lam moi form!";
+            ShowStatus("Đã làm mới Form.", false);
         }
+
+        // --- CÁC HÀM HỖ TRỢ (HELPER METHODS) ---
 
         private void ClearForm()
         {
             selectedPlayer = null;
             dgPlayers.SelectedItem = null;
-            txtPlayerName.Text = "";
+            txtPlayerName.Text = string.Empty;
             cboTeam.SelectedItem = null;
             dpDateOfBirth.SelectedDate = null;
-            txtNationality.Text = "";
-            txtJerseyNumber.Text = "";
+            txtNationality.Text = string.Empty;
+            txtJerseyNumber.Text = string.Empty;
             cboPosition.SelectedItem = null;
             cboStatus.SelectedItem = null;
+        }
+
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrWhiteSpace(txtPlayerName.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên cầu thủ!", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                txtPlayerName.Focus();
+                return false;
+            }
+            if (cboTeam.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn đội bóng!", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                cboTeam.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        private string GetSelectedComboBoxString(ComboBox comboBox)
+        {
+            return (comboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
+        }
+
+        private void ShowStatus(string message, bool isError)
+        {
+            if (txtStatus != null)
+            {
+                txtStatus.Text = message;
+                txtStatus.Foreground = isError ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.LightGreen;
+            }
         }
     }
 }
