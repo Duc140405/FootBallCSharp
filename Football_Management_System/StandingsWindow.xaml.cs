@@ -27,14 +27,14 @@ namespace Football_Management_System
                 using (var db = new FootballDbContext())
                 {
                     var list = db.Tournaments.OrderBy(t => t.TournamentName).ToList();
-                    list.Insert(0, new Tournament { TournamentID = 0, TournamentName = "-- Tat ca --" });
+                    list.Insert(0, new Tournament { TournamentID = 0, TournamentName = "-- Tất cả --" });
                     cboTournament.ItemsSource = list;
                     cboTournament.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Loi tai giai dau: " + ex.Message, "Loi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Lỗi tải giải đấu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -61,12 +61,12 @@ namespace Football_Management_System
                                        .ToList();
 
                     ApplyFilter();
-                    txtStatus.Text = "Da tai " + allStandings.Count + " ban ghi.";
+                    txtStatus.Text = "Đã tải " + allStandings.Count + " bản ghi.";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Loi tai bang xep hang: " + ex.Message, "Loi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Lỗi tải bảng xếp hạng: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
