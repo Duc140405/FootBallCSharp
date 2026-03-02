@@ -1,0 +1,397 @@
+<Window x:Class="Football_Management_System.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Football Management System" Height="780" Width="1280"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#EEF5F9">
+
+    <Window.Resources>
+        <Style x:Key="SidebarBtn" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#A6B0CF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" Padding="22,0,10,0" CornerRadius="0">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#313A4E"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LogoutBtn" TargetType="Button" BasedOn="{StaticResource SidebarBtn}">
+            <Setter Property="Foreground" Value="#EF5350"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" Padding="22,0,10,0" CornerRadius="0">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#3E2723"/>
+                                <Setter Property="Foreground" Value="#FF8A80"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CardBorder" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="12" ShadowDepth="2" Opacity="0.08" Direction="270"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ===== SIDEBAR ===== -->
+        <Border Grid.Column="0" Background="#2A3042">
+            <DockPanel>
+                <!-- LOGO -->
+                <Border DockPanel.Dock="Top" Padding="0,22,0,22" Background="#2A3042">
+                    <StackPanel HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="⚽" FontSize="28" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="FOOTBALL" FontSize="22" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Management System" FontSize="11" Foreground="#7B8190" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border DockPanel.Dock="Top" Height="1" Background="#353D50" Margin="20,0"/>
+
+                <!-- USER -->
+                <Border DockPanel.Dock="Top" Padding="20,16,20,16">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="40" Height="40" CornerRadius="20" Background="#556EE6">
+                            <TextBlock x:Name="txtAvatar" Text="U" Foreground="White" FontSize="16" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock x:Name="txtWelcome" Text="User" Foreground="White" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Text="Online" Foreground="#34C38F" FontSize="11"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border DockPanel.Dock="Top" Height="1" Background="#353D50" Margin="20,0"/>
+
+                <!-- MENU LABEL -->
+                <TextBlock DockPanel.Dock="Top" Text="MENU" Foreground="#6B7280" FontSize="10" FontWeight="Bold" Margin="22,18,0,8"/>
+
+                <!-- LOGOUT at bottom -->
+                <Button DockPanel.Dock="Bottom" Style="{StaticResource LogoutBtn}" Click="btnDangXuat_Click" Margin="0,0,0,15">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🚪" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <TextBlock Text="Đăng Xuất" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Border DockPanel.Dock="Bottom" Height="1" Background="#353D50" Margin="20,5"/>
+
+                <!-- MENU ITEMS -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnDashboard_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📊" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Dashboard" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnQuanLyGiaiDau_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🏆" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Quản Lý Giải Đấu" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnQuanLyDoiBong_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🏟" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Quản Lý Đội Bóng" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnQuanLyCauThu_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="👤" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Quản Lý Cầu Thủ" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnQuanLyHLV_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🧑" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Quản Lý HLV" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnLichThiDau_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📅" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Lịch Thi Đấu" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnKetQua_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚽" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Kết Quả Trận Đấu" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnBangXepHang_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📋" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Bảng Xếp Hạng" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnThongKe_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📈" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Thống Kê" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SidebarBtn}" Click="btnBaoCao_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📄" FontSize="15" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <TextBlock Text="Báo Cáo" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- TOP HEADER BAR -->
+            <Border Grid.Row="0" Background="White" Padding="25,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.06" Direction="270"/>
+                </Border.Effect>
+                <DockPanel>
+                    <TextBlock Text="Dashboard" FontSize="18" FontWeight="SemiBold" Foreground="#495057" VerticalAlignment="Center"/>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock x:Name="txtDateTime" Text="" Foreground="#74788D" FontSize="12" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        <Border Width="36" Height="36" CornerRadius="18" Background="#556EE6" Cursor="Hand">
+                            <TextBlock x:Name="txtHeaderAvatar" Text="U" Foreground="White" FontSize="14" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- SCROLLABLE CONTENT -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="25,20,25,20">
+                <StackPanel>
+                    <!-- KPI CARDS ROW -->
+                    <UniformGrid Columns="4" Margin="0,0,0,20">
+                        <!-- Card 1: Giai dau -->
+                        <Border Style="{StaticResource CardBorder}" Margin="0,0,10,0">
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="GIẢI ĐẤU" Foreground="#74788D" FontSize="11" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="txtTournaments" Text="0" FontSize="28" FontWeight="Bold" Foreground="#343A40" Margin="0,6,0,0"/>
+                                </StackPanel>
+                                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="48" CornerRadius="24" Background="#556EE6" Opacity="0.15"/>
+                                <TextBlock Text="🏆" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Card 2: Đội bóng -->
+                        <Border Style="{StaticResource CardBorder}" Margin="5,0,5,0">
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="ĐỘI BÓNG" Foreground="#74788D" FontSize="11" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="txtTeams" Text="0" FontSize="28" FontWeight="Bold" Foreground="#343A40" Margin="0,6,0,0"/>
+                                </StackPanel>
+                                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="48" CornerRadius="24" Background="#34C38F" Opacity="0.15"/>
+                                <TextBlock Text="🏟" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Card 3: Cầu thủ -->
+                        <Border Style="{StaticResource CardBorder}" Margin="5,0,5,0">
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="CẦU THỦ" Foreground="#74788D" FontSize="11" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="txtPlayers" Text="0" FontSize="28" FontWeight="Bold" Foreground="#343A40" Margin="0,6,0,0"/>
+                                </StackPanel>
+                                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="48" CornerRadius="24" Background="#F1B44C" Opacity="0.15"/>
+                                <TextBlock Text="👤" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Card 4: Trận đấu -->
+                        <Border Style="{StaticResource CardBorder}" Margin="10,0,0,0">
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="TRẬN ĐẤU" Foreground="#74788D" FontSize="11" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="txtMatches" Text="0" FontSize="28" FontWeight="Bold" Foreground="#343A40" Margin="0,6,0,0"/>
+                                </StackPanel>
+                                <Border HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="48" CornerRadius="24" Background="#F46A6A" Opacity="0.15"/>
+                                <TextBlock Text="⚽" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"/>
+                            </Grid>
+                        </Border>
+                    </UniformGrid>
+
+                    <!-- SECOND ROW: Recent Matches + Feeds -->
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Recent Matches -->
+                        <Border Grid.Column="0" Style="{StaticResource CardBorder}" Margin="0,0,10,0">
+                            <StackPanel>
+                                <DockPanel Margin="0,0,0,15">
+                                    <TextBlock Text="Trận Đấu Gần Đây" FontSize="16" FontWeight="SemiBold" Foreground="#343A40"/>
+                                    <TextBlock Text="5 trận mới nhất" DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                               Foreground="#74788D" FontSize="12" VerticalAlignment="Center"/>
+                                </DockPanel>
+                                <DataGrid x:Name="dgRecentMatches" AutoGenerateColumns="False" CanUserAddRows="False"
+                                          IsReadOnly="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                          BorderThickness="0" RowHeight="40" FontSize="13"
+                                          HorizontalGridLinesBrush="#EFF2F7" Background="White" RowBackground="White"
+                                          AlternatingRowBackground="#F8F9FA">
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Foreground" Value="#74788D"/>
+                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                            <Setter Property="FontSize" Value="12"/>
+                                            <Setter Property="Padding" Value="8,10"/>
+                                            <Setter Property="BorderBrush" Value="#EFF2F7"/>
+                                            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Ngày" Binding="{Binding MatchDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                                        <DataGridTextColumn Header="Đội nhà" Binding="{Binding HomeTeamName}" Width="*"/>
+                                        <DataGridTextColumn Header="Kết quả" Binding="{Binding Result}" Width="80"/>
+                                        <DataGridTextColumn Header="Đội khách" Binding="{Binding AwayTeamName}" Width="*"/>
+                                        <DataGridTextColumn Header="Sân" Binding="{Binding Stadium}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Feeds / Quick Info -->
+                        <Border Grid.Column="1" Style="{StaticResource CardBorder}" Margin="10,0,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Thông Tin Nhanh" FontSize="16" FontWeight="SemiBold" Foreground="#343A40" Margin="0,0,0,15"/>
+
+                                <Border BorderBrush="#EFF2F7" BorderThickness="0,0,0,1" Padding="0,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="36" Height="36" CornerRadius="18" Background="#556EE6" Margin="0,0,12,0">
+                                            <TextBlock Text="🏆" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock x:Name="txtFeedTournament" Text="0 giải đấu" Foreground="#343A40" FontSize="13"/>
+                                            <TextBlock Text="Giải đấu" Foreground="#74788D" FontSize="11"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border BorderBrush="#EFF2F7" BorderThickness="0,0,0,1" Padding="0,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="36" Height="36" CornerRadius="18" Background="#34C38F" Margin="0,0,12,0">
+                                            <TextBlock Text="👤" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock x:Name="txtFeedCoach" Text="0 huấn luyện viên" Foreground="#343A40" FontSize="13"/>
+                                            <TextBlock Text="Huấn luyện viên" Foreground="#74788D" FontSize="11"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border BorderBrush="#EFF2F7" BorderThickness="0,0,0,1" Padding="0,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="36" Height="36" CornerRadius="18" Background="#F1B44C" Margin="0,0,12,0">
+                                            <TextBlock Text="⚽" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock x:Name="txtFeedGoals" Text="0 bàn thắng" Foreground="#343A40" FontSize="13"/>
+                                            <TextBlock Text="Tổng bàn thắng" Foreground="#74788D" FontSize="11"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Padding="0,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="36" Height="36" CornerRadius="18" Background="#F46A6A" Margin="0,0,12,0">
+                                            <TextBlock Text="📋" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock x:Name="txtFeedStandings" Text="0 bảng xếp hạng" Foreground="#343A40" FontSize="13"/>
+                                            <TextBlock Text="Bảng xếp hạng" Foreground="#74788D" FontSize="11"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- THIRD ROW: Top Teams Table -->
+                    <Border Style="{StaticResource CardBorder}">
+                        <StackPanel>
+                            <DockPanel Margin="0,0,0,15">
+                                <TextBlock Text="Tổng Quan Đội Bóng" FontSize="16" FontWeight="SemiBold" Foreground="#343A40"/>
+                                <TextBlock Text="Thông tin chung" DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                           Foreground="#74788D" FontSize="12" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <DataGrid x:Name="dgTeamOverview" AutoGenerateColumns="False" CanUserAddRows="False"
+                                      IsReadOnly="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                      BorderThickness="0" RowHeight="38" FontSize="13" MaxHeight="280"
+                                      HorizontalGridLinesBrush="#EFF2F7" Background="White" RowBackground="White"
+                                      AlternatingRowBackground="#F8F9FA">
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Foreground" Value="#74788D"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Padding" Value="8,10"/>
+                                        <Setter Property="BorderBrush" Value="#EFF2F7"/>
+                                        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Đội Bóng" Binding="{Binding TeamName}" Width="*"/>
+                                    <DataGridTextColumn Header="Sân" Binding="{Binding Stadium}" Width="180"/>
+                                    <DataGridTextColumn Header="Cầu Thủ" Binding="{Binding PlayerCount}" Width="90"/>
+                                    <DataGridTextColumn Header="Trận Đấu" Binding="{Binding MatchCount}" Width="90"/>
+                                    <DataGridTextColumn Header="Trạng Thái" Binding="{Binding Status}" Width="100"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
