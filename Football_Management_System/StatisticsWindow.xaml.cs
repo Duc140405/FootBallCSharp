@@ -18,6 +18,21 @@ namespace Football_Management_System
             LoadData();
         }
 
+        private void ExportAwardsPdf_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Chức năng xuất PDF đang phát triển.");
+        }
+
+        private void ExportAwardsExcel_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Chức năng xuất Excel đang phát triển.");
+        }
+
+        private void PrintAwards_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Chức năng in đang phát triển.");
+        }
+
         private void LoadTournaments()
         {
             try
