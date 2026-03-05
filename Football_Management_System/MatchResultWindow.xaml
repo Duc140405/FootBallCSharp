@@ -71,6 +71,7 @@
                         <TextBlock Text="⚽ TỶ SỐ" FontWeight="Bold" FontSize="13" 
                                    Foreground="#2E7D32" Margin="0,15,0,8"/>
                         <Grid>
+                            <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="30"/>
                                 <ColumnDefinition Width="*"/>
@@ -93,7 +94,8 @@
                         </Grid>
 
                         <!-- Thẻ phạt -->
-                        <          Foreground="#F57C00" Margin="0,15,0,8"/>
+                        <TextBlock Text="🟨 THẺ PHẠT" FontWeight="Bold" FontSize="13" 
+                                   Foreground="#F57C00" Margin="0,15,0,8"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -124,7 +126,8 @@
 
                         <!-- Ghi chú -->
                         <TextBlock Text="📋 GHI CHÚ" FontWeight="Bold" FontSize="13" 
-                         TextBox x:Name="txtNote" Height="50" TextWrapping="Wrap" 
+                                   Foreground="#6A1B9A" Margin="0,15,0,8"/>
+                        <TextBox x:Name="txtNote" Height="50" TextWrapping="Wrap" 
                                  AcceptsReturn="True" Padding="5"/>
 
                         <!-- BUTTONS -->
@@ -164,12 +167,14 @@
             <!-- RIGHT: DATAGRID + TÌM KIẾM -->
             <Grid Grid.Column="1" Margin="5">
                 <Grid.RowDefinitions>
-             Grid Grid.Column="1" Margin="5">
-                <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-="🔍" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                
+                <!-- Thanh tìm kiếm -->
+                <Border Grid.Row="0" Background="#FAFAFA" CornerRadius="8" Padding="10" Margin="0,0,0,10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🔍" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBox x:Name="txtSearch" Width="200" Height="30" 
                                  VerticalContentAlignment="Center" Padding="5"
                                  TextChanged="txtSearch_TextChanged"/>
@@ -182,19 +187,19 @@
                 <Border Grid.Row="1" Background="#FAFAFA" CornerRadius="8" Padding="5">
                     <DataGrid x:Name="dgMatches" 
                               AutoGenerateColumns="False"
-ectionChanged="dgMatches_SelectionChanged"
+                              SelectionChanged="dgMatches_SelectionChanged"
                               RowHeight="35"
                               AlternatingRowBackground="#E3F2FD"
                               GridLinesVisibility="Horizontal"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Đội Nhà" Binding="{Binding HomeTeam}" Width="110"/>
-                            <DataGridTextColumn Header="Đội Khách" Binding="{Binding AwayTeam}" Width="110"/>
+                            <DataGridTextColumn Header="Đội Nhà" Binding="{Binding HomeTeamName}" Width="110"/>
+                            <DataGridTextColumn Header="Đội Khách" Binding="{Binding AwayTeamName}" Width="110"/>
                             <DataGridTextColumn Header="Ngày" Binding="{Binding MatchDate, StringFormat=dd/MM/yyyy}" Width="90"/>
                             <DataGridTextColumn Header="Kết Quả" Binding="{Binding Result}" Width="70"/>
                             <DataGridTextColumn Header="🟨" Binding="{Binding TotalYellow}" Width="40"/>
                             <DataGridTextColumn Header="🟥" Binding="{Binding TotalRed}" Width="40"/>
-                            <DataGridTextColumn Header="Trạng Thái" Binding="{Binding Status}" Width="90"/>
+                            <DataGridTextColumn Header="Trạng Thái" Binding="{Binding MatchStatus}" Width="90"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>
