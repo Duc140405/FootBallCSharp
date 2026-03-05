@@ -30,12 +30,39 @@
                           SelectionChanged="cboTournament_SelectionChanged"/>
 
 				<Button Content="Làm mới"
-                        Width="100"
-                        Height="30"
-                        Margin="10,0,0,0"
-                        Background="#607D8B"
-                        Foreground="White"
-                        Click="btnRefresh_Click"/>
+							Width="100"
+							Height="30"
+							Margin="10,0,0,0"
+							Background="#607D8B"
+							Foreground="White"
+							Click="btnRefresh_Click"/>
+
+					<Button Content="&#x1F3C6; Xuat Giai Thuong PDF"
+							Height="30"
+							Margin="10,0,0,0"
+							Padding="10,0"
+							Background="#E53935"
+							Foreground="White"
+							FontWeight="Bold"
+							Click="ExportAwardsPdf_Click"/>
+
+					<Button Content="&#x1F4CA; Xuat Excel"
+							Height="30"
+							Margin="5,0,0,0"
+							Padding="10,0"
+							Background="#43A047"
+							Foreground="White"
+							FontWeight="Bold"
+							Click="ExportAwardsExcel_Click"/>
+
+					<Button Content="&#x1F5A8; In"
+							Height="30"
+							Margin="5,0,0,0"
+							Padding="10,0"
+							Background="#FB8C00"
+							Foreground="White"
+							FontWeight="Bold"
+							Click="PrintAwards_Click"/>
 			</StackPanel>
 		</Border>
 

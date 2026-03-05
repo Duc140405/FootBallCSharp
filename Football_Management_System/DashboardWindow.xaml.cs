@@ -127,18 +127,21 @@ namespace Football_Management_System
         {
             var win = new StandingsWindow();
             win.ShowDialog();
+            LoadOverview();
         }
 
         private void btnThongKe_Click(object sender, RoutedEventArgs e)
         {
             var win = new StatisticsWindow();
             win.ShowDialog();
+            LoadOverview();
         }
 
         private void btnBaoCao_Click(object sender, RoutedEventArgs e)
         {
             var win = new ReportWindow();
             win.ShowDialog();
+            LoadOverview();
         }
 
         private void btnDangXuat_Click(object sender, RoutedEventArgs e)
