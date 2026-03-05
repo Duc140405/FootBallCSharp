@@ -17,7 +17,7 @@ namespace Football_Management_System
         }
 
         /// <summary>
-        /// Hash password SHA256 (khớp với SQL Server)
+    
         /// </summary>
         private string HashPassword(string password)
         {
