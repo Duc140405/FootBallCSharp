@@ -19,7 +19,11 @@ namespace Football_Management_System.Models
         public int? Losses { get; set; }
         public int? GoalsFor { get; set; }
         public int? GoalsAgainst { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int? GoalDifference { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int? Points { get; set; }
         public DateTime? UpdatedDate { get; set; }
 

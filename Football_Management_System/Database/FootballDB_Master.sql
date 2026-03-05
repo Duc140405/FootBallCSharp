@@ -547,12 +547,10 @@ INSERT INTO Users (Username, PasswordHash, Email, FullName, RoleID)
 VALUES (N'admin', N'123', N'admin@football.com', N'Administrator', 1);
 GO
 
-DELETE FROM Tournaments; 
-GO
 -- 7.2 Giải đấu
-INSERT INTO Tournaments (TournamentName, TotalRounds,Season, StartDate, EndDate, Status) VALUES 
-    (N'Giải VĐQG 2026', 16, '2026-01-01', '2026-12-31', N'Đang diễn ra'),
-    (N'Cup Sinh viên 2026', 24 , '2026-03-01', '2026-06-30', N'Đang diễn ra');
+INSERT INTO Tournaments (TournamentName, TotalRounds, Season, StartDate, EndDate, Status) VALUES 
+    (N'Giải VĐQG 2026', 16, N'2026', '2026-01-01', '2026-12-31', N'Đang diễn ra'),
+    (N'Cup Sinh viên 2026', 24, N'2026', '2026-03-01', '2026-06-30', N'Đang diễn ra'),
     (N'Giải Ngoại Hạng Anh', 38, N'2024-2025', '2024-08-16', '2025-05-25', N'Đang diễn ra'),
     (N'V-League 1', 26, N'2024-2025', '2024-09-14', '2025-06-15', N'Đang diễn ra'),
     (N'UEFA Champions League', 13, N'2024-2025', '2024-09-17', '2025-05-31', N'Đang diễn ra'),
@@ -572,17 +570,22 @@ INSERT INTO Coaches (CoachName, Nationality, ExperienceYears) VALUES
     (N'Lê Văn C', N'Việt Nam', 5);
 GO
 
--- 7.4 Đội bóng
+-- 7.4 Đội bóng (TeamID 1-14)
 INSERT INTO Teams (TeamName, ShortName, Stadium, CoachID, TournamentID) VALUES 
-    (N'Hà Nội FC', N'HNFC', N'Sân Hàng Đẫy', 1, 1),
-    (N'Hoàng Anh Gia Lai', N'HAGL', N'Sân Pleiku', 2, 1),
-    (N'Sài Gòn FC', N'SGFC', N'Sân Thống Nhất', 3, 1),
-    (N'Viettel FC', N'VTFC', N'Sân Hàng Đẫy', NULL, 1),
-    (N'Thanh Hóa FC', N'THFC', N'Sân Thanh Hóa', NULL, 1),
-    (N'Manchester United', N'MUN', N'Sân Old Trafford', 1, 2),
-    (N'SHB Đà Nẵng', N'SHBDN', N'Sân Hòa Xuân', 2, 1),
-	(N'Công An Hà Nội', N'CAHN', N'Sân Hàng Đẫy', 1,1),
-	(N'Thép Xanh Nam Định', N'TXND',N'Sân Thiên Trường',1,1);
+	(N'Hà Nội FC', N'HNFC', N'Sân Hàng Đẫy', 1, 1),
+	(N'Hoàng Anh Gia Lai', N'HAGL', N'Sân Pleiku', 2, 1),
+	(N'Sài Gòn FC', N'SGFC', N'Sân Thống Nhất', 3, 1),
+	(N'Viettel FC', N'VTFC', N'Sân Hàng Đẫy', NULL, 1),
+	(N'Thanh Hóa FC', N'THFC', N'Sân Thanh Hóa', NULL, 1),
+	(N'Manchester United', N'MUN', N'Old Trafford', NULL, 3),
+	(N'SHB Đà Nẵng', N'SHBDN', N'Sân Hòa Xuân', 2, 1),
+	(N'Công An Hà Nội', N'CAHN', N'Sân Hàng Đẫy', 1, 1),
+	(N'Thép Xanh Nam Định', N'TXND', N'Sân Thiên Trường', 1, 1),
+	(N'Liverpool', N'LIV', N'Anfield', NULL, 3),
+	(N'Manchester City', N'MCI', N'Etihad Stadium', NULL, 3),
+	(N'Arsenal', N'ARS', N'Emirates Stadium', NULL, 3),
+	(N'Tottenham', N'TOT', N'Tottenham Hotspur Stadium', NULL, 3),
+	(N'Chelsea', N'CHE', N'Stamford Bridge', NULL, 3);
 GO
 
 -- 7.5 Vòng đấu (QuocDo)
@@ -592,19 +595,20 @@ INSERT INTO Rounds (TournamentID, RoundNumber, RoundName, Status) VALUES
     (1, 3, N'Vòng 3', N'Đang diễn ra');
 GO
 
--- 7.6 Trận đấu mẫu (Đức) — TeamID 6-11 = Manchester United..Tottenham
+-- 7.6 Trận đấu mẫu (Đức)
+-- TeamID: 6=MU, 10=Liverpool, 11=Man City, 12=Arsenal, 13=Tottenham, 14=Chelsea
 INSERT INTO Matches (TournamentID, HomeTeamID, AwayTeamID, MatchDate) VALUES
-    (1, 6, 7, '2026-03-01 19:00:00'),
-    (1, 8, 9, '2026-03-02 21:00:00'),
-    (1, 10, 11, '2026-03-03 18:30:00');
+    (1, 10, 11, '2026-03-01 19:00:00'),
+    (1, 12, 13, '2026-03-02 21:00:00'),
+    (1, 6, 14, '2026-03-03 18:30:00');
 GO
 
 -- 7.7 Kết quả mẫu (Đức)
 INSERT INTO MatchResults (MatchID, HomeScore, AwayScore, HomeYellowCards, AwayYellowCards, HomeRedCards, AwayRedCards, Note)
 VALUES 
-    (1, 2, 1, 3, 2, 0, 1, N'Trận derby Manchester'),
-    (2, 3, 2, 1, 1, 0, 0, N'Trận hay'),
-    (3, 2, 2, 1, 2, 0, 1, N'Hòa kịch tính');
+    (1, 2, 1, 3, 2, 0, 1, N'Liverpool vs Man City'),
+    (2, 3, 2, 1, 1, 0, 0, N'Arsenal vs Tottenham'),
+    (3, 2, 2, 1, 2, 0, 1, N'Man Utd vs Chelsea');
 GO
 
 -- 7.8 BXH mẫu (QuocDo) — TeamID 1-5 = Hà Nội..Thanh Hóa
@@ -618,7 +622,7 @@ GO
 
 -- =============================================
 -- 7.9 CẦU THỦ MẪU
--- TeamID 1-5 = Việt Nam, TeamID 6-11 = EPL
+-- TeamID 1-9 = Việt Nam, TeamID 6=MU, 10=LIV, 11=MCI, 12=ARS, 13=TOT, 14=CHE
 -- =============================================
 
 INSERT INTO Players 
@@ -641,28 +645,28 @@ VALUES
 (4, N'Bùi Tiến Dũng', '1995-10-02', N'Việt Nam', 1, N'GK', N'Goalkeeper', N'Right', 181, 78, N'Active', 7),
 -- Team 5: Thanh Hóa FC
 (5, N'Đoàn Văn Hậu', '1999-04-19', N'Việt Nam', 5, N'DF', N'Left Back', N'Left', 185, 79, N'Active', 8),
--- Team 6: Liverpool
-(6, N'Mohamed Salah', '1992-06-15', N'Egypt', 11, N'FW', N'Right Winger', N'Left', 175, 71, N'Active', 9),
-(6, N'Virgil van Dijk', '1991-07-08', N'Netherlands', 4, N'DF', N'Center Back', N'Right', 193, 92, N'Active', 9),
-(6, N'Trent Alexander-Arnold', '1998-10-07', N'England', 66, N'DF', N'Right Back', N'Right', 180, 75, N'Active', 8),
--- Team 7: Man City
-(7, N'Erling Haaland', '2000-07-21', N'Norway', 9, N'FW', N'Striker', N'Left', 194, 88, N'Active', 9),
-(7, N'Kevin De Bruyne', '1991-06-28', N'Belgium', 17, N'MF', N'Attacking Midfielder', N'Right', 181, 76, N'Active', 10),
-(7, N'Phil Foden', '2000-05-28', N'England', 47, N'MF', N'Winger', N'Left', 171, 69, N'Active', 8),
--- Team 8: Arsenal
-(8, N'Bukayo Saka', '2001-09-05', N'England', 7, N'FW', N'Right Winger', N'Left', 178, 72, N'Active', 9),
-(8, N'Martin Odegaard', '1998-12-17', N'Norway', 8, N'MF', N'Attacking Midfielder', N'Left', 178, 68, N'Active', 9),
-(8, N'William Saliba', '2001-03-24', N'France', 2, N'DF', N'Center Back', N'Right', 192, 85, N'Active', 8),
--- Team 9: Tottenham
-(9, N'Son Heung-min', '1992-07-08', N'South Korea', 7, N'FW', N'Left Winger', N'Right', 183, 78, N'Active', 9),
-(9, N'James Maddison', '1996-11-23', N'England', 10, N'MF', N'Attacking Midfielder', N'Right', 175, 73, N'Active', 8),
--- Team 10: Man Utd
-(10, N'Bruno Fernandes', '1994-09-08', N'Portugal', 8, N'MF', N'Attacking Midfielder', N'Right', 179, 69, N'Active', 9),
-(10, N'Marcus Rashford', '1997-10-31', N'England', 10, N'FW', N'Left Winger', N'Right', 185, 80, N'Active', 8),
-(10, N'Casemiro', '1992-02-23', N'Brazil', 18, N'MF', N'Defensive Midfielder', N'Right', 185, 84, N'Active', 8),
--- Team 11: Chelsea
-(11, N'Cole Palmer', '2002-05-06', N'England', 20, N'MF', N'Attacking Midfielder', N'Left', 185, 72, N'Active', 9),
-(11, N'Nicolas Jackson', '2001-06-20', N'Senegal', 15, N'FW', N'Striker', N'Right', 182, 75, N'Active', 8);
+-- Team 10: Liverpool (PlayerID 10-12)
+(10, N'Mohamed Salah', '1992-06-15', N'Egypt', 11, N'FW', N'Right Winger', N'Left', 175, 71, N'Active', 9),
+(10, N'Virgil van Dijk', '1991-07-08', N'Netherlands', 4, N'DF', N'Center Back', N'Right', 193, 92, N'Active', 9),
+(10, N'Trent Alexander-Arnold', '1998-10-07', N'England', 66, N'DF', N'Right Back', N'Right', 180, 75, N'Active', 8),
+-- Team 11: Man City (PlayerID 13-15)
+(11, N'Erling Haaland', '2000-07-21', N'Norway', 9, N'FW', N'Striker', N'Left', 194, 88, N'Active', 9),
+(11, N'Kevin De Bruyne', '1991-06-28', N'Belgium', 17, N'MF', N'Attacking Midfielder', N'Right', 181, 76, N'Active', 10),
+(11, N'Phil Foden', '2000-05-28', N'England', 47, N'MF', N'Winger', N'Left', 171, 69, N'Active', 8),
+-- Team 12: Arsenal (PlayerID 16-18)
+(12, N'Bukayo Saka', '2001-09-05', N'England', 7, N'FW', N'Right Winger', N'Left', 178, 72, N'Active', 9),
+(12, N'Martin Odegaard', '1998-12-17', N'Norway', 8, N'MF', N'Attacking Midfielder', N'Left', 178, 68, N'Active', 9),
+(12, N'William Saliba', '2001-03-24', N'France', 2, N'DF', N'Center Back', N'Right', 192, 85, N'Active', 8),
+-- Team 13: Tottenham (PlayerID 19-20)
+(13, N'Son Heung-min', '1992-07-08', N'South Korea', 7, N'FW', N'Left Winger', N'Right', 183, 78, N'Active', 9),
+(13, N'James Maddison', '1996-11-23', N'England', 10, N'MF', N'Attacking Midfielder', N'Right', 175, 73, N'Active', 8),
+-- Team 6: Man Utd (PlayerID 21-23)
+(6, N'Bruno Fernandes', '1994-09-08', N'Portugal', 8, N'MF', N'Attacking Midfielder', N'Right', 179, 69, N'Active', 9),
+(6, N'Marcus Rashford', '1997-10-31', N'England', 10, N'FW', N'Left Winger', N'Right', 185, 80, N'Active', 8),
+(6, N'Casemiro', '1992-02-23', N'Brazil', 18, N'MF', N'Defensive Midfielder', N'Right', 185, 84, N'Active', 8),
+-- Team 14: Chelsea (PlayerID 24-25)
+(14, N'Cole Palmer', '2002-05-06', N'England', 20, N'MF', N'Attacking Midfielder', N'Left', 185, 72, N'Active', 9),
+(14, N'Nicolas Jackson', '2001-06-20', N'Senegal', 15, N'FW', N'Striker', N'Right', 182, 75, N'Active', 8);
 GO
 
 -- =============================================
@@ -675,10 +679,9 @@ GO
 
 -- =============================================
 -- 7.11 THỐNG KÊ TRẬN ĐẤU CẦU THỦ (Đức)
--- Match 1: Liverpool(6) vs Man City(7)
--- Match 2: Arsenal(8) vs Tottenham(9) (Chelsea=TeamID 9 -> Tottenham)
--- Match 3: Man Utd(10) vs Chelsea(11)
--- PlayerID 10-25 = cầu thủ EPL
+-- Match 1: Liverpool(10) vs Man City(11) — PlayerID 10-15
+-- Match 2: Arsenal(12) vs Tottenham(13) — PlayerID 16-20
+-- Match 3: Man Utd(6) vs Chelsea(14) — PlayerID 21-25
 -- =============================================
 
 INSERT INTO PlayerStatistics (PlayerID, TournamentID, MatchID, Goals, Assists, YellowCards, RedCards, MinutesPlayed) VALUES

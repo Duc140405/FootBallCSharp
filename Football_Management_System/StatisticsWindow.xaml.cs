@@ -58,7 +58,7 @@ namespace Football_Management_System
 
                     int totalMatches = 0;
                     if (tournamentId > 0)
-                        totalMatches = db.Matches.Count(m => m.Round != null && m.Round.TournamentID == tournamentId);
+                        totalMatches = db.Matches.Count(m => m.TournamentID == tournamentId);
                     else
                         totalMatches = db.Matches.Count();
 
