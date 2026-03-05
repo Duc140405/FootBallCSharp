@@ -1,4 +1,4 @@
--- =============================================
+﻿-- =============================================
 -- FootballDB_Master.sql
 -- Database chuẩn duy nhất cho Football Management System
 -- Ngày tạo: 2026-02-26

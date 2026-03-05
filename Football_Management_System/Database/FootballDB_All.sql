@@ -1,4 +1,4 @@
-CREATE TABLE teams (
+﻿CREATE TABLE teams (
     team_id INT IDENTITY(1,1) PRIMARY KEY,
     team_name NVARCHAR(150) NOT NULL UNIQUE,
     logo_path NVARCHAR(255),

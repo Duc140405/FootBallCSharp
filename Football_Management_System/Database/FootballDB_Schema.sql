@@ -1,4 +1,4 @@
--- ============================================
+﻿-- ============================================
 -- FOOTBALL MANAGEMENT SYSTEM DATABASE SCHEMA
 -- Phần: Match Result Window
 -- Author: Nguyễn Tấn Đức
